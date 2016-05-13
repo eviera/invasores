@@ -14,8 +14,6 @@ open class Window(width: Int, height: Int, title: String, invasores: Invasores) 
         frame.setLocationRelativeTo(null)
         frame.add(invasores)
         frame.isVisible = true
-        invasores.start()
-
     }
 
 
