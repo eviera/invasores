@@ -13,20 +13,60 @@ class Invasores() : Canvas(), Runnable {
 
     val WIDTH = 640
     val HEIGHT = WIDTH / 12 * 9
-    var thread: Thread? = null
+    val thread: Thread
     var running = false
 
     init {
         Window(WIDTH, HEIGHT, "Sasa", this)
+        thread = Thread(this)
     }
 
     @Synchronized fun start() {
-        thread = Thread(this)
-        (thread as Thread).start()
+        thread.start()
+        running = true
     }
 
+    @Synchronized fun stop() {
+        thread.join()
+        running = false
+    }
+
+
     override fun run() {
-        throw UnsupportedOperationException()
+        var lastTime = System.nanoTime()
+        val amountOfTicks = 60.0
+        val ns = 1000000000 / amountOfTicks
+        var delta = 0.0
+        var timer = System.currentTimeMillis()
+        var frames = 0
+        while(running) {
+            val now = System.nanoTime()
+            delta += (now - lastTime) / ns
+            lastTime = now
+            while (delta  >= 1) {
+                tick()
+                delta--
+            }
+            if(running) {
+                render()
+            }
+            frames++
+            if (System.currentTimeMillis() - timer > 1000) {
+                timer += 1000
+                System.out.println("FPS: ${frames}")
+                frames = 0
+            }
+        }
+        stop()
+
+    }
+
+    private fun render() {
+        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    private fun tick() {
+        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
 
