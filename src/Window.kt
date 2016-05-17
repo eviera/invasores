@@ -13,6 +13,7 @@ open class Window(width: Int, height: Int, title: String, invasores: Invasores) 
         frame.isResizable = false
         frame.setLocationRelativeTo(null)
         frame.add(invasores)
+        frame.pack()
         frame.isVisible = true
     }
 

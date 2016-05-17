@@ -1,5 +1,6 @@
 import java.awt.Canvas
 import java.awt.Color
+import java.awt.EventQueue
 
 /*
 https://www.youtube.com/watch?v=1gir2R7G9ws
@@ -20,8 +21,9 @@ class Invasores() : Canvas(), Runnable {
 
     init {
         Window(WIDTH, HEIGHT, "Sasa", this)
-        handler = Handler(Player(WIDTH/2-32, HEIGHT/2-32))
+        handler = Handler(Player(WIDTH / 2 - 32, HEIGHT / 2 - 32))
         addKeyListener(KeyInput(handler))
+        start()
     }
 
     @Synchronized fun start() {
@@ -65,7 +67,7 @@ class Invasores() : Canvas(), Runnable {
             //Reporta una vez por segundo los FPS
             if (System.currentTimeMillis() - timer > 1000) {
                 timer += 1000
-                println("FPS: ${frames}")
+                //println("FPS: ${frames}")
                 frames = 0
             }
         }
@@ -102,6 +104,6 @@ class Invasores() : Canvas(), Runnable {
 
 
 fun main(args: Array<String>) {
-    val invasores = Invasores()
-    invasores.start()
+    EventQueue.invokeLater { run { Invasores() } }
+
 }
