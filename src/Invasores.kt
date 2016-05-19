@@ -2,28 +2,29 @@ import org.newdawn.slick.*
 
 class Invasores : BasicGame("Invasores") {
 
-    var nave :Image? = null
-    var x = 200f;
+    val player = Player()
 
     override fun init(gc: GameContainer?) {
-        nave = Image("/resources/images/nave_64.png")
+        player.init(gc)
     }
 
     override fun update(gc: GameContainer?, delta: Int) {
         val input = gc?.input
-        if (input?.isKeyDown(Input.KEY_LEFT)!!) { x-- }
-        if (input?.isKeyDown(Input.KEY_RIGHT)!!) { x++ }
+        if (input?.isKeyDown(Input.KEY_LEFT) as Boolean) { player.setX(player.getX() - 0.5f * delta) }
+        if (input?.isKeyDown(Input.KEY_RIGHT) as Boolean) { player.setX(player.getX() + 0.5f * delta) }
 
     }
 
     override fun render(gc: GameContainer?, g: Graphics?) {
-        g?.drawImage(nave, x, 200f)
+        player.render(gc, g)
     }
 
 }
 
 fun main(args: Array<String>) {
     val appgc = AppGameContainer(Invasores())
-    appgc.setDisplayMode(800, 600, false)
+    appgc.setDisplayMode(Const.GAME_WIDTH, Const.GAME_HEIGHT, false)
+    appgc.setTargetFrameRate(60)
+    appgc.setVSync(true)
     appgc.start()
 }
