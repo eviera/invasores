@@ -105,5 +105,4 @@ class Invasores() : Canvas(), Runnable {
 
 fun main(args: Array<String>) {
     EventQueue.invokeLater { run { Invasores() } }
-
 }

@@ -3,8 +3,13 @@ import org.newdawn.slick.*
 class Invasores : BasicGame("Invasores") {
 
     val player = Player()
+    val aliens = arrayOfNulls<Alien>(24)
 
     override fun init(gc: GameContainer?) {
+        /*
+         En este metodo se cargan las imagenes
+         */
+        InitHelper.init(gc, player, aliens)
         player.init(gc)
     }
 
@@ -21,10 +26,12 @@ class Invasores : BasicGame("Invasores") {
 
 }
 
+
 fun main(args: Array<String>) {
     val appgc = AppGameContainer(Invasores())
     appgc.setDisplayMode(Const.GAME_WIDTH, Const.GAME_HEIGHT, false)
     appgc.setTargetFrameRate(60)
     appgc.setVSync(true)
+    appgc.setShowFPS(false)
     appgc.start()
 }
