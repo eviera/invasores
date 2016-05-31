@@ -7,12 +7,12 @@ class Player : Rectangle(Const.PLAYER_START_X, Const.PLAYER_START_Y, Const.SP_SI
 
     var nave :Image? = null
 
-    fun init(gc: GameContainer?) {
-        nave = Image("/resources/images/nave_64.png")
+    fun init(image: Image) {
+        nave = image
     }
 
-    fun render(gc: GameContainer?, g: Graphics?) {
-        g?.drawImage(nave, x, y)
+    fun render(gc: GameContainer, g: Graphics) {
+        g.drawImage(nave, x, y)
     }
 
 

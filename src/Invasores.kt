@@ -6,22 +6,22 @@ class Invasores : BasicGame("Invasores") {
     val aliens = arrayOfNulls<Alien>(24)
 
     override fun init(gc: GameContainer?) {
-        /*
-         En este metodo se cargan las imagenes
-         */
-        InitHelper.init(gc, player, aliens)
-        player.init(gc)
+        if (gc == null ) throw RuntimeException("Error de gc null")
+        Manager.init(gc, player, aliens)
     }
 
     override fun update(gc: GameContainer?, delta: Int) {
-        val input = gc?.input
+        if (gc == null ) throw RuntimeException("Error de gc null")
+
+        val input = gc.input
         if (input?.isKeyDown(Input.KEY_LEFT) as Boolean) { player.setX(player.getX() - 0.5f * delta) }
         if (input?.isKeyDown(Input.KEY_RIGHT) as Boolean) { player.setX(player.getX() + 0.5f * delta) }
 
     }
 
     override fun render(gc: GameContainer?, g: Graphics?) {
-        player.render(gc, g)
+        if (gc == null || g == null) throw RuntimeException("Error de gc o g null")
+        Manager.render(gc, g, player, aliens)
     }
 
 }

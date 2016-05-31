@@ -1,6 +1,3 @@
-/**
- * Created by ideafix on 5/18/2016.
- */
 object Const {
     val GAME_WIDTH = 800
     val GAME_HEIGHT = 600
