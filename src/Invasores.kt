@@ -21,8 +21,7 @@ class Invasores : BasicGame("Invasores") {
         val sprites = SpriteSheet(Image("/resources/images/sprites.png"), 64, 64)
 
         //Cargo la nave del jugador
-        val nave =
-                player.init(sprites.getSprite(0, 1))
+        val nave = player.init(sprites.getSprite(0, 1), sprites.getSprite(1, 1))
 
         //Cargo los aliens
         for (f in 0..2) {
