@@ -4,18 +4,22 @@ import org.newdawn.slick.Graphics
 import org.newdawn.slick.Image
 import org.newdawn.slick.geom.Rectangle
 
-class Alien (x: Float, y: Float) : Rectangle(x, y, Const.SP_SIZE, Const.SP_SIZE) {
+class Alien (x: Float, y: Float, var alienDisplacement: Float) : Rectangle(x, y, Const.SP_SIZE, Const.SP_SIZE) {
 
-    var nave : Animation? = null
+    lateinit var sprite: Animation
 
-    fun init(nave: Animation) {
-        this.nave = nave
+    fun init(sprite: Animation) {
+        this.sprite = sprite
+    }
+
+    fun update(gc: GameContainer, delta: Int, alienDisplacement: Float) {
+        this.alienDisplacement = alienDisplacement
     }
 
     fun render(gc: GameContainer, g: Graphics) {
-        (nave as Animation).draw(x, y)
+        x = x + alienDisplacement
+        sprite.draw(x , y)
     }
-
 
 
 }
