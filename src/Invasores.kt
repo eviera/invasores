@@ -79,6 +79,8 @@ class Invasores : BasicGame("Invasores") {
             alien?.update(gc, delta, alienDisplacement)
         }
 
+        //Chequeo las colisiones
+        ColissionManager.checkCollision()
 
     }
 

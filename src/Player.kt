@@ -4,7 +4,7 @@ import Const.SP_SIZE
 import org.newdawn.slick.*
 import org.newdawn.slick.geom.Rectangle
 
-class Player : Rectangle(Const.PLAYER_START_X, Const.PLAYER_START_Y, Const.SP_SIZE, Const.SP_SIZE) {
+class Player : Rectangle(Const.PLAYER_START_X, Const.PLAYER_START_Y, Const.SP_SIZE, Const.SP_SIZE), Colissionable {
 
     lateinit var sprite: Image
     lateinit var shoot: Shoot
@@ -16,6 +16,7 @@ class Player : Rectangle(Const.PLAYER_START_X, Const.PLAYER_START_Y, Const.SP_SI
         this.sprite = sprite
         this.shootSprite = shootSprite
         this.shootSound = shootSound
+        ColissionManager.add(this)
     }
 
     fun update(gc: GameContainer, delta: Int) {
@@ -68,9 +69,13 @@ class Player : Rectangle(Const.PLAYER_START_X, Const.PLAYER_START_Y, Const.SP_SI
         if (!isShooting) {
             isShooting = true
             shoot = Shoot(x, y, shootSprite)
+            shoot.init()
             shootSound.play()
         }
     }
 
+    override fun collisionWith() {
+
+    }
 
 }
