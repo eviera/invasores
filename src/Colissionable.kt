@@ -1,5 +1,0 @@
-interface Colissionable {
-
-    fun collisionWith()
-
-}

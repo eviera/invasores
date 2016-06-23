@@ -11,19 +11,6 @@ class Invasores : BasicGame("Invasores") {
     var aliensDirection = 1
 
 
-    /*
-    Crear un Colisionador que implemente un patro observable
-    Todos los objetos que pueda sufrir colision se registran en el colisionador
-    En el update principal, se llama la colisionador para que chequee si hay colisiones entre todos sus registrados
-    Si hay colision, avisa a sus colisionados
-
-    */
-
-
-
-
-
-
     override fun init(gc: GameContainer?) {
         if (gc == null ) throw RuntimeException("Error de gc null")
 
@@ -80,7 +67,7 @@ class Invasores : BasicGame("Invasores") {
         }
 
         //Chequeo las colisiones
-        ColissionManager.checkCollision()
+        CollisionManager.checkCollision()
 
     }
 

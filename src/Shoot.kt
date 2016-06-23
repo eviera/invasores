@@ -3,12 +3,12 @@ import org.newdawn.slick.Graphics
 import org.newdawn.slick.Image
 import org.newdawn.slick.geom.Rectangle
 
-class Shoot (x: Float, y: Float, val sprite: Image) : Rectangle(x, y, Const.SP_SIZE, Const.SP_SIZE), Colissionable {
+class Shoot (x: Float, y: Float, val sprite: Image) : CollisionableRectangle(x, y, Const.SP_SIZE, Const.SP_SIZE) {
 
     var alive: Boolean = true
 
     fun init() {
-        ColissionManager.add(this)
+        CollisionManager.addShoot(this)
     }
 
     fun update(gc: GameContainer, delta: Int) {
@@ -29,7 +29,7 @@ class Shoot (x: Float, y: Float, val sprite: Image) : Rectangle(x, y, Const.SP_S
 
     fun remove() {
         alive = false
-        ColissionManager.remove(this)
+        CollisionManager.removeShoot(this)
     }
 
     override fun collisionWith() {
