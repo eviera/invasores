@@ -1,8 +1,6 @@
 import org.newdawn.slick.Animation
 import org.newdawn.slick.GameContainer
 import org.newdawn.slick.Graphics
-import org.newdawn.slick.Image
-import org.newdawn.slick.geom.Rectangle
 
 class Alien (x: Float, y: Float, var alienDisplacement: Float) : CollisionableRectangle(x, y, Const.SP_SIZE, Const.SP_SIZE){
 
@@ -18,7 +16,7 @@ class Alien (x: Float, y: Float, var alienDisplacement: Float) : CollisionableRe
     }
 
     fun render(gc: GameContainer, g: Graphics) {
-        x = x + alienDisplacement
+        x += alienDisplacement
         sprite.draw(x , y)
     }
 
@@ -26,7 +24,7 @@ class Alien (x: Float, y: Float, var alienDisplacement: Float) : CollisionableRe
         CollisionManager.removeAlien(this)
     }
 
-    override fun collisionWith() {
+    override fun collisionWith(collisioned: CollisionableRectangle) {
 
     }
 

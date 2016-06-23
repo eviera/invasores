@@ -2,7 +2,6 @@ import Const.GAME_WIDTH
 import Const.PLAYER_SPEED
 import Const.SP_SIZE
 import org.newdawn.slick.*
-import org.newdawn.slick.geom.Rectangle
 
 class Player : CollisionableRectangle(Const.PLAYER_START_X, Const.PLAYER_START_Y, Const.SP_SIZE, Const.SP_SIZE) {
 
@@ -69,12 +68,12 @@ class Player : CollisionableRectangle(Const.PLAYER_START_X, Const.PLAYER_START_Y
         if (!isShooting) {
             isShooting = true
             shoot = Shoot(x, y, shootSprite)
-            shoot.init()
+            shoot.init(Shoot.To.SHOOT_TO_ALIEN)
             shootSound.play()
         }
     }
 
-    override fun collisionWith() {
+    override fun collisionWith(collisioned: CollisionableRectangle) {
 
     }
 

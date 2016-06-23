@@ -1,14 +1,23 @@
 import org.newdawn.slick.GameContainer
 import org.newdawn.slick.Graphics
 import org.newdawn.slick.Image
-import org.newdawn.slick.geom.Rectangle
 
 class Shoot (x: Float, y: Float, val sprite: Image) : CollisionableRectangle(x, y, Const.SP_SIZE, Const.SP_SIZE) {
 
-    var alive: Boolean = true
+    enum class To {
+        SHOOT_TO_ALIEN,
+        SHOOT_TO_PLAYER
+    }
 
-    fun init() {
-        CollisionManager.addShoot(this)
+    var alive: Boolean = true
+    lateinit var to: To
+
+    fun init(to: To) {
+        this.to = to
+        when(to) {
+            To.SHOOT_TO_ALIEN -> CollisionManager.addShootToAlien(this)
+            To.SHOOT_TO_PLAYER -> CollisionManager.addShootToPlayer(this)
+        }
     }
 
     fun update(gc: GameContainer, delta: Int) {
@@ -29,11 +38,14 @@ class Shoot (x: Float, y: Float, val sprite: Image) : CollisionableRectangle(x, 
 
     fun remove() {
         alive = false
-        CollisionManager.removeShoot(this)
+        when(to) {
+            To.SHOOT_TO_ALIEN -> CollisionManager.removeShootToAlien(this)
+            To.SHOOT_TO_PLAYER -> CollisionManager.removeShootToPlayer(this)
+        }
     }
 
-    override fun collisionWith() {
-
+    override fun collisionWith(collisioned: CollisionableRectangle) {
+        remove()
     }
 
 }
