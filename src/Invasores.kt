@@ -17,7 +17,7 @@ class Invasores : BasicGame("Invasores") {
         fontComputer24 = TrueTypeFont(Font.createFont(Font.TRUETYPE_FONT, ResourceLoader.getResourceAsStream("/resources/fonts/Computerfont.ttf")).deriveFont(24f), false)
 
         //Cargo la spritesheet
-        val sprites = SpriteSheet(Image("/resources/images/sprites.png"), 64, 64)
+        val sprites = SpriteSheet(Image("/resources/images/sprites_32.png"), Const.SP_SIZE.toInt(), Const.SP_SIZE.toInt())
 
         //Cargo la nave del jugador
         player.init(sprites.getSprite(0, 1), sprites.getSprite(1, 1), Sound("resources/sounds/player_shoot.wav"))
