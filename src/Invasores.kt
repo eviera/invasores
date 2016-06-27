@@ -40,17 +40,23 @@ class Invasores : BasicGame("Invasores") {
         if (gc == null ) throw RuntimeException("Error de gc null")
         val input = gc.input
 
+        //Si hay mucho delta, lo seteo a un minimo de 20 (para cuando se draggea la ventana)
+        var correctedDelta = delta
+        if (correctedDelta > 20) {
+            correctedDelta = 20
+        }
 
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
             gc.exit()
         }
 
         //Actualizo el jugador
-        player.update(gc, delta)
+        player.update(gc, correctedDelta)
 
         //Calculo la velocidad y direccion de los aliens
-        var alienDisplacement = Const.ALIEN_START_SPEED * delta * aliensDirection
+        var alienDisplacement = Const.ALIEN_START_SPEED * correctedDelta * aliensDirection
         var aliensXDest = aliensX + alienDisplacement
+        println(aliensXDest)
         if (aliensXDest > Const.ALIEN_END_X) {
             aliensXDest = Const.ALIEN_END_X
             aliensDirection = -1
@@ -63,13 +69,16 @@ class Invasores : BasicGame("Invasores") {
         aliensX = aliensXDest
 
         for (alien in aliens) {
-            alien?.update(gc, delta, alienDisplacement)
+            alien?.update(gc, correctedDelta, alienDisplacement)
         }
 
         //Chequeo las colisiones
         CollisionManager.checkCollision()
 
+
     }
+
+
 
     override fun render(gc: GameContainer?, g: Graphics?) {
         if (gc == null || g == null) throw RuntimeException("Error de inicializacion")
