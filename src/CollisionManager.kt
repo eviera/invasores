@@ -4,6 +4,7 @@ object CollisionManager {
     val playerCollisionables = mutableListOf<CollisionableRectangle>()
     val shootToAlienCollisionables = mutableListOf<CollisionableRectangle>()
     val shootToPlayerCollisionables = mutableListOf<CollisionableRectangle>()
+    val brickCollisionables = mutableListOf<CollisionableRectangle>()
 
     fun addAlien(colissionable: CollisionableRectangle) = alienCollisionables.add(colissionable)
     fun removeAlien(colissionable: CollisionableRectangle) = alienCollisionables.remove(colissionable)
@@ -16,6 +17,9 @@ object CollisionManager {
 
     fun addShootToPlayer(colissionable: CollisionableRectangle) = shootToPlayerCollisionables.add(colissionable)
     fun removeShootToPlayer(colissionable: CollisionableRectangle) = shootToPlayerCollisionables.remove(colissionable)
+
+    fun addBrick(colissionable: CollisionableRectangle) = brickCollisionables.add(colissionable)
+    fun removeBrick(colissionable: CollisionableRectangle) = brickCollisionables.remove(colissionable)
 
     fun checkCollision() {
         val pairCollisions = mutableListOf<Pair<CollisionableRectangle, CollisionableRectangle>>()

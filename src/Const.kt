@@ -17,6 +17,8 @@ object Const {
     val ALIEN_END_X = GAME_WIDTH - (ALIEN_GAP_FROM_BORDERS + Helper.getAlienColPos(ALIEN_X_SHIFT, ALIEN_COLS - 1) + ALIEN_GAP_FROM_BORDERS) //Cuanto se pueden desplazar los aliens a la derecha es el ancho de la pantalla menos ancho de todos los aliens dibujados menos los dos bordes
     val ALIEN_START_Y = SP_SIZE / 3f
 
+    val BRICK_QUANTITY = 20
+
     enum class MOV {
         H,V
     }

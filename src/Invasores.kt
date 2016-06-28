@@ -5,7 +5,8 @@ import java.awt.Font
 class Invasores : BasicGame("Invasores") {
 
     val player = Player()
-    val aliens = arrayOfNulls<Alien>(24)
+    val aliens = arrayOfNulls<Alien>(Const.ALIEN_COLS * Const.ALIEN_ROWS)
+    val bricks = arrayOfNulls<Brick>(Const.BRICK_QUANTITY)
     lateinit var fontComputer24: TrueTypeFont
 
     /**
@@ -57,6 +58,8 @@ class Invasores : BasicGame("Invasores") {
                 aliens[f * Const.ALIEN_COLS + c] = alien
             }
         }
+
+        //Cargo el muro
 
 
     }
