@@ -9,17 +9,31 @@ class Invasores : BasicGame("Invasores") {
     lateinit var fontComputer24: TrueTypeFont
 
     /**
-     * Mantiene la posicion de los aliens (en el extremo izquierdo)
+     * Mantiene la posicion vertical de los aliens (arranca en el extremo izquierdo)
      */
     var aliensX = Const.ALIEN_START_X
+
+    /**
+     * Mantiene la posicion horizontal de los aliens (arranca arriba)
+     */
     var aliensY = Const.ALIEN_START_Y
+
     /**
      * Hasta donde debe llegar cuando bajen los aliens en el proximo escalon
      */
     var aliensEndY = aliensY + Const.SP_SIZE
 
+    /**
+     * Direccion del movimiento horizonal: 1 a la derecha, -1 a la izquierda
+     */
     var aliensDirection = 1
+
+    /**
+     * Determina si se mueve en forma horizontal o vertical (arranca en horizontal)
+     */
     var movimiento : Const.MOV = Const.MOV.H;
+
+
 
 
     override fun init(gc: GameContainer?) {
@@ -64,11 +78,13 @@ class Invasores : BasicGame("Invasores") {
         //Actualizo el jugador
         player.update(gc, correctedDelta)
 
+
         //Calculo la velocidad y direccion de los aliens
         var alienXDisplacement = 0f;
         var alienYDisplacement = 0f;
-
         when(movimiento) {
+
+            //Movimiento vertical
             Const.MOV.H -> {
                 //Donde deberia dibujarse en X en el proximo frame los aliens
                 alienXDisplacement = Const.ALIEN_START_SPEED * correctedDelta * aliensDirection
@@ -88,21 +104,25 @@ class Invasores : BasicGame("Invasores") {
                 }
                 aliensX = aliensXDest
             }
+
+            //Movimiento horizontal
             Const.MOV.V -> {
+                //Hago el movimento en horizontal el doble de veloz que el vertical (porque queda mas lindo)
                 alienYDisplacement = (Const.ALIEN_START_SPEED  * 2) * correctedDelta
                 var aliensYDest = aliensY + alienYDisplacement
+                //Si llegue al borde del escalon, me quedo ahi, e incremento el escalon al siguiente peldaño (un SP_SIZE mas)
                 if (aliensYDest > aliensEndY) {
                     aliensYDest = aliensEndY
                     aliensEndY += Const.SP_SIZE
                     alienYDisplacement = 0f
                     movimiento = Const.MOV.H
                 }
-
                 aliensY = aliensYDest
             }
         }
 
 
+        //Actualizo los aliens
         for (alien in aliens) {
             alien?.update(gc, correctedDelta, alienXDisplacement, alienYDisplacement)
         }
