@@ -2,7 +2,7 @@ import org.newdawn.slick.Animation
 import org.newdawn.slick.GameContainer
 import org.newdawn.slick.Graphics
 
-class Alien (x: Float, y: Float, var alienDisplacement: Float) : CollisionableRectangle(x, y, Const.SP_SIZE, Const.SP_SIZE){
+class Alien (x: Float, y: Float, var alienXDisplacement: Float, var alienYDisplacement: Float) : CollisionableRectangle(x, y, Const.SP_SIZE, Const.SP_SIZE){
 
     lateinit var sprite: Animation
     var alive: Boolean = true
@@ -12,15 +12,17 @@ class Alien (x: Float, y: Float, var alienDisplacement: Float) : CollisionableRe
         CollisionManager.addAlien(this)
     }
 
-    fun update(gc: GameContainer, delta: Int, alienDisplacement: Float) {
+    fun update(gc: GameContainer, delta: Int, alienXDisplacement: Float, alienYDisplacement: Float) {
         if (alive) {
-            this.alienDisplacement = alienDisplacement
+            this.alienXDisplacement = alienXDisplacement
+            this.alienYDisplacement = alienYDisplacement
         }
     }
 
     fun render(gc: GameContainer, g: Graphics) {
         if (alive) {
-            x += alienDisplacement
+            x += alienXDisplacement
+            y += alienYDisplacement
             sprite.draw(x, y)
         }
     }

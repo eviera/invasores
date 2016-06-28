@@ -7,8 +7,19 @@ class Invasores : BasicGame("Invasores") {
     val player = Player()
     val aliens = arrayOfNulls<Alien>(24)
     lateinit var fontComputer24: TrueTypeFont
+
+    /**
+     * Mantiene la posicion de los aliens (en el extremo izquierdo)
+     */
     var aliensX = Const.ALIEN_START_X
+    var aliensY = Const.ALIEN_START_Y
+    /**
+     * Hasta donde debe llegar cuando bajen los aliens en el proximo escalon
+     */
+    var aliensEndY = aliensY + Const.SP_SIZE
+
     var aliensDirection = 1
+    var movimiento : Const.MOV = Const.MOV.H;
 
 
     override fun init(gc: GameContainer?) {
@@ -27,7 +38,7 @@ class Invasores : BasicGame("Invasores") {
             val colDisp = if (f == 1 ) Const.ALIEN_X_SHIFT else 1f
             for (c in 0..Const.ALIEN_COLS - 1) {
                 val alienAnimation = Animation(arrayOf(sprites.getSprite(f * 2, 0), sprites.getSprite(f * 2 + 1, 0)), Helper.getRandomAnimationInterval())
-                val alien = Alien(Helper.getAlienColPos(colDisp, c), Helper.getAlienRowPos(f), 0f)
+                val alien = Alien(Helper.getAlienColPos(colDisp, c), Helper.getAlienRowPos(f), 0f, 0f)
                 alien.init(alienAnimation)
                 aliens[f * Const.ALIEN_COLS + c] = alien
             }
@@ -54,22 +65,46 @@ class Invasores : BasicGame("Invasores") {
         player.update(gc, correctedDelta)
 
         //Calculo la velocidad y direccion de los aliens
-        var alienDisplacement = Const.ALIEN_START_SPEED * correctedDelta * aliensDirection
-        var aliensXDest = aliensX + alienDisplacement
-        println(aliensXDest)
-        if (aliensXDest > Const.ALIEN_END_X) {
-            aliensXDest = Const.ALIEN_END_X
-            aliensDirection = -1
-            alienDisplacement = 0f
-        } else if (aliensXDest < Const.ALIEN_START_X) {
-            aliensXDest = Const.ALIEN_START_X
-            aliensDirection = 1
-            alienDisplacement = 0f
+        var alienXDisplacement = 0f;
+        var alienYDisplacement = 0f;
+
+        when(movimiento) {
+            Const.MOV.H -> {
+                //Donde deberia dibujarse en X en el proximo frame los aliens
+                alienXDisplacement = Const.ALIEN_START_SPEED * correctedDelta * aliensDirection
+                var aliensXDest = aliensX + alienXDisplacement
+                //Si me paso del borde derecho
+                if (aliensXDest > Const.ALIEN_END_X) {
+                    aliensXDest = Const.ALIEN_END_X
+                    aliensDirection = -1
+                    alienXDisplacement = 0f
+                    movimiento = Const.MOV.V
+                //Si me paso del borde izquierdo
+                } else if (aliensXDest < Const.ALIEN_START_X) {
+                    aliensXDest = Const.ALIEN_START_X
+                    aliensDirection = 1
+                    alienXDisplacement = 0f
+                    movimiento = Const.MOV.V
+                }
+                aliensX = aliensXDest
+            }
+            Const.MOV.V -> {
+                alienYDisplacement = (Const.ALIEN_START_SPEED  * 2) * correctedDelta
+                var aliensYDest = aliensY + alienYDisplacement
+                if (aliensYDest > aliensEndY) {
+                    aliensYDest = aliensEndY
+                    aliensEndY += Const.SP_SIZE
+                    alienYDisplacement = 0f
+                    movimiento = Const.MOV.H
+                }
+
+                aliensY = aliensYDest
+            }
         }
-        aliensX = aliensXDest
+
 
         for (alien in aliens) {
-            alien?.update(gc, correctedDelta, alienDisplacement)
+            alien?.update(gc, correctedDelta, alienXDisplacement, alienYDisplacement)
         }
 
         //Chequeo las colisiones
