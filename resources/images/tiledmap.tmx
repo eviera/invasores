@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="36" height="18" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" name="tiles" tilewidth="32" tileheight="32" tilecount="36" columns="6">
+  <image source="sprites_32.png" width="192" height="192"/>
+ </tileset>
+ <layer name="layer0" width="36" height="18">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA2NlGDyAdaAdMApGwSgYBaNgFJABGIGYEwvGBrCpw6WWWPXY5BhJ9cQoGFAwmNpAILcAAHAOiuMgCgAA
+  </data>
+ </layer>
+</map>

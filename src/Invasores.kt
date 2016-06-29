@@ -1,4 +1,5 @@
 import org.newdawn.slick.*
+import org.newdawn.slick.tiled.TiledMap
 import org.newdawn.slick.util.ResourceLoader
 import java.awt.Font
 
@@ -8,6 +9,7 @@ class Invasores : BasicGame("Invasores") {
     val aliens = arrayOfNulls<Alien>(Const.ALIEN_COLS * Const.ALIEN_ROWS)
     val bricks = arrayOfNulls<Brick>(Const.BRICK_QUANTITY)
     lateinit var fontComputer24: TrueTypeFont
+    lateinit var tiledMap: TiledMap
 
     /**
      * Mantiene la posicion vertical de los aliens (arranca en el extremo izquierdo)
@@ -44,6 +46,9 @@ class Invasores : BasicGame("Invasores") {
 
         //Cargo la spritesheet
         val sprites = SpriteSheet(Image("/resources/images/sprites_32.png"), Const.SP_SIZE.toInt(), Const.SP_SIZE.toInt())
+
+        //Cargo el tilemap
+        tiledMap = TiledMap("/resources/images/tiledmap.tmx")
 
         //Cargo la nave del jugador
         player.init(sprites.getSprite(0, 1), sprites.getSprite(1, 1), Sound("resources/sounds/player_shoot.wav"))
@@ -142,6 +147,10 @@ class Invasores : BasicGame("Invasores") {
         if (gc == null || g == null) throw RuntimeException("Error de inicializacion")
 
         //Rendereo elementos de pantalla
+
+        //Mapa
+        tiledMap.render(0, 0)
+
         //Scoreboard
         g.color = Color.white
         g.drawLine(0f, Const.GAME_HEIGHT - Const.SP_SIZE + 5, Const.GAME_WIDTH * 1f, Const.GAME_HEIGHT - Const.SP_SIZE + 5)

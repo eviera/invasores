@@ -1,6 +1,6 @@
 object Const {
-    val GAME_WIDTH = 1200
-    val GAME_HEIGHT = 600
+    val GAME_WIDTH = 36 * 32
+    val GAME_HEIGHT = 18 * 32
     val SP_SIZE = 32f
 
     val PLAYER_START_X: Float = GAME_WIDTH / 2f
