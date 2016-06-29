@@ -31,6 +31,11 @@ object CollisionManager {
                         pairCollisions.add(Pair(shoot, alien))
                     }
                 }
+                for (brick in brickCollisionables) {
+                    if (shoot.intersects(brick)) {
+                        pairCollisions.add(Pair(shoot, brick))
+                    }
+                }
             }
 
         }
@@ -40,6 +45,11 @@ object CollisionManager {
                 for (player in playerCollisionables) {
                     if (shoot.intersects(player)) {
                         pairCollisions.add(Pair(shoot, player))
+                    }
+                }
+                for (brick in brickCollisionables) {
+                    if (shoot.intersects(brick)) {
+                        pairCollisions.add(Pair(shoot, brick))
                     }
                 }
             }

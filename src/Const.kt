@@ -1,6 +1,29 @@
 object Const {
-    val GAME_WIDTH = 36 * 32
-    val GAME_HEIGHT = 18 * 32
+
+    enum class GAME_TILES_ID {
+        NULL,
+        ALIEN_1_1,
+        ALIEN_1_2,
+        ALIEN_2_1,
+        ALIEN_2_2,
+        ALIEN_3_1,
+        ALIEN_3_2,
+        NAVE,
+        NAVE_SHOOT,
+        BRICK_ENTERO,
+        BRICK_PARTIDO,
+        BRICK_ROTO,
+    }
+
+    enum class MOV {
+        H,V
+    }
+
+    val GAME_TILES_LAYER = 0
+    val GAME_TILES_WIDTH = 36
+    val GAME_TILES_HEIGHT = 18
+    val GAME_WIDTH = GAME_TILES_WIDTH * 32      //px
+    val GAME_HEIGHT = GAME_TILES_HEIGHT * 32    //px
     val SP_SIZE = 32f
 
     val PLAYER_START_X: Float = GAME_WIDTH / 2f
@@ -19,7 +42,4 @@ object Const {
 
     val BRICK_QUANTITY = 20
 
-    enum class MOV {
-        H,V
-    }
 }
