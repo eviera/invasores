@@ -159,6 +159,17 @@ class Invasores : BasicGame("Invasores") {
             alien?.render(gc, g)
         }
 
+        g.color = Color.yellow
+        for (x in 0..Const.GAME_TILES_WIDTH - 1) {
+            for (y in 0..Const.GAME_TILES_HEIGHT - 1) {
+                g.drawRect(Helper.convertXTileCoordToPixelCoord(x), Helper.convertYTileCoordToPixelCoord(y), 32f, 32f)
+            }
+        }
+        g.color = Color.green
+        for(brick in CollisionManager.brickCollisionables) {
+            g.drawRect(brick.x, brick.y, brick.width, brick.height)
+        }
+
     }
 
 }

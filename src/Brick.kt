@@ -13,8 +13,6 @@ class Brick (val tileX: Int, val tileY: Int) : CollisionableRectangle(Helper.con
     var status = STATUS.ENTERO
 
     fun init() {
-        println("${Helper.convertXTileCoordToPixelCoord(tileX)}, ${Helper.convertYTileCoordToPixelCoord(tileY)}")
-
         CollisionManager.addBrick(this)
     }
 
@@ -25,7 +23,6 @@ class Brick (val tileX: Int, val tileY: Int) : CollisionableRectangle(Helper.con
     }
 
     override fun collisionWith(collisioned: CollisionableRectangle) {
-        println("colision con brick")
         remove()
         //TiledMapManager.change(Helper.convertXPixelCoordToTileCoord(x), Helper.convertYPixelCoordToTileCoord(y), status.tileId)
     }
