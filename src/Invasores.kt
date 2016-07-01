@@ -46,7 +46,7 @@ class Invasores : BasicGame("Invasores") {
         val sprites = SpriteSheet(Image("/resources/images/sprites_32.png"), Const.SP_SIZE.toInt(), Const.SP_SIZE.toInt())
 
         //Levanto el TiledMapManager
-        TiledMapManager.init();
+        TiledMapManager.init(Sound("resources/sounds/brick_break.wav"));
 
         //Cargo la nave del jugador
         player.init(sprites.getSprite(0, 1), sprites.getSprite(1, 1), Sound("resources/sounds/player_shoot.wav"))
@@ -157,17 +157,6 @@ class Invasores : BasicGame("Invasores") {
         player.render(gc, g)
         for (alien in aliens) {
             alien?.render(gc, g)
-        }
-
-        g.color = Color.yellow
-        for (x in 0..Const.GAME_TILES_WIDTH - 1) {
-            for (y in 0..Const.GAME_TILES_HEIGHT - 1) {
-                g.drawRect(Helper.convertXTileCoordToPixelCoord(x), Helper.convertYTileCoordToPixelCoord(y), 32f, 32f)
-            }
-        }
-        g.color = Color.green
-        for(brick in CollisionManager.brickCollisionables) {
-            g.drawRect(brick.x, brick.y, brick.width, brick.height)
         }
 
     }

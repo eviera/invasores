@@ -12,11 +12,9 @@ object Helper {
     fun getAlienColPos(colDisp: Float, c: Int) = ALIEN_START_X * colDisp + c * SP_SIZE * 2.5f
     fun getAlienRowPos(f: Int) = ALIEN_START_Y + SP_SIZE * f * 1.3f
 
-    fun convertXTileCoordToPixelCoord(tileCoord: Int) = tileCoord * Const.GAME_TILES_WIDTH * 1f
-    fun convertYTileCoordToPixelCoord(tileCoord: Int) = tileCoord * Const.GAME_TILES_HEIGHT * 1f
+    fun convertTileCoordToPixelCoord(tileCoord: Int) = tileCoord * Const.SP_SIZE
 
-    fun convertXPixelCoordToTileCoord(x: Float) = BigDecimal((x / Const.GAME_TILES_WIDTH).toDouble()).setScale(1, RoundingMode.DOWN).toInt()
-    fun convertYPixelCoordToTileCoord(y: Float) = BigDecimal((y / Const.GAME_TILES_HEIGHT).toDouble()).setScale(1, RoundingMode.DOWN).toInt()
+    fun convertPixelCoordToTileCoord(pixelCoord: Float) = BigDecimal((pixelCoord / Const.SP_SIZE).toDouble()).setScale(1, RoundingMode.DOWN).toInt()
 
 
 }
