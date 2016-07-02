@@ -1,6 +1,7 @@
 import org.newdawn.slick.Animation
 import org.newdawn.slick.GameContainer
 import org.newdawn.slick.Graphics
+import org.newdawn.slick.Sound
 
 class Alien (x: Float, y: Float, var alienXDisplacement: Float, var alienYDisplacement: Float) : CollisionableRectangle(x, y, Const.SP_SIZE, Const.SP_SIZE){
 
@@ -33,7 +34,19 @@ class Alien (x: Float, y: Float, var alienXDisplacement: Float, var alienYDispla
     }
 
     override fun collisionWith(collisioned: CollisionableRectangle) {
+        Sounds.playExplosion()
         remove()
     }
+
+    companion object Sounds {
+        lateinit var alienExplosion: Sound
+        fun init (alienExplosion: Sound) {
+            this.alienExplosion = alienExplosion
+        }
+        fun playExplosion() {
+            alienExplosion.play()
+        }
+    }
+
 
 }

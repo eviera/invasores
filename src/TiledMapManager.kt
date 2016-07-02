@@ -1,11 +1,10 @@
-import org.newdawn.slick.Sound
 import org.newdawn.slick.tiled.TiledMap
 
 object TiledMapManager {
 
     lateinit var tiledMap: TiledMap
 
-    fun init(brickBreakSound: Sound) {
+    fun init() {
         //Cargo el tiledMap y computo los ladrillos del muro
         tiledMap = TiledMap("/resources/images/tiledmap.tmx")
         //Busco los ladrillos en el tiledMap, y cuando los encuentro, los creo
@@ -14,7 +13,7 @@ object TiledMapManager {
                 val tileId = tiledMap.getTileId(x, y, Const.GAME_TILES_LAYER)
                 if (tileId == Const.GAME_TILES_ID.BRICK_ENTERO.ordinal) {
                     val brick = Brick(x, y)
-                    brick.init(brickBreakSound)
+                    brick.init()
                 }
             }
         }

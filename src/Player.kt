@@ -8,13 +8,11 @@ class Player : CollisionableRectangle(Const.PLAYER_START_X, Const.PLAYER_START_Y
     lateinit var sprite: Image
     lateinit var shoot: Shoot
     lateinit var shootSprite: Image
-    lateinit var shootSound: Sound
     var isShooting = false
 
-    fun init(sprite: Image, shootSprite: Image, shootSound: Sound) {
+    fun init(sprite: Image, shootSprite: Image) {
         this.sprite = sprite
         this.shootSprite = shootSprite
-        this.shootSound = shootSound
         CollisionManager.addPlayer(this)
     }
 
@@ -69,12 +67,23 @@ class Player : CollisionableRectangle(Const.PLAYER_START_X, Const.PLAYER_START_Y
             isShooting = true
             shoot = Shoot(x, y, shootSprite)
             shoot.init(Shoot.To.SHOOT_TO_ALIEN)
-            shootSound.play()
+            Sounds.shootSound.play()
         }
     }
 
     override fun collisionWith(collisioned: CollisionableRectangle) {
 
     }
+
+    companion object Sounds {
+        lateinit var shootSound: Sound
+        fun init (shootSound: Sound) {
+            this.shootSound = shootSound
+        }
+        fun playShoot() {
+            shootSound.play()
+        }
+    }
+
 
 }
