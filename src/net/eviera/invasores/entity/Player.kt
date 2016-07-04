@@ -1,9 +1,13 @@
-import Const.GAME_WIDTH
-import Const.PLAYER_SPEED
-import Const.SP_SIZE
+package net.eviera.invasores.entity
+
+import net.eviera.invasores.helper.Const
+import net.eviera.invasores.helper.Const.GAME_WIDTH
+import net.eviera.invasores.helper.Const.PLAYER_SPEED
+import net.eviera.invasores.helper.Const.SP_SIZE
+import net.eviera.invasores.manager.CollisionManager
 import org.newdawn.slick.*
 
-class Player : CollisionableRectangle(Const.PLAYER_START_X, Const.PLAYER_START_Y, Const.SP_SIZE, Const.SP_SIZE) {
+class Player : CollisionableRectangle(Const.PLAYER_START_X, Const.PLAYER_START_Y, SP_SIZE, SP_SIZE) {
 
     lateinit var sprite: Image
     lateinit var shoot: Shoot
@@ -67,7 +71,7 @@ class Player : CollisionableRectangle(Const.PLAYER_START_X, Const.PLAYER_START_Y
             isShooting = true
             shoot = Shoot(x, y, shootSprite)
             shoot.init(Shoot.To.SHOOT_TO_ALIEN)
-            Sounds.shootSound.play()
+            shootSound.play()
         }
     }
 

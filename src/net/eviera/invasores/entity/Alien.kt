@@ -1,3 +1,7 @@
+package net.eviera.invasores.entity
+
+import net.eviera.invasores.helper.Const
+import net.eviera.invasores.manager.CollisionManager
 import org.newdawn.slick.Animation
 import org.newdawn.slick.GameContainer
 import org.newdawn.slick.Graphics

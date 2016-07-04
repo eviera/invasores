@@ -1,3 +1,7 @@
+package net.eviera.invasores.manager
+
+import net.eviera.invasores.entity.CollisionableRectangle
+
 object CollisionManager {
 
     val alienCollisionables = mutableListOf<CollisionableRectangle>()

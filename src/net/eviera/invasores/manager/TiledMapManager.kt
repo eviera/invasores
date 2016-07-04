@@ -1,3 +1,7 @@
+package net.eviera.invasores.manager
+
+import net.eviera.invasores.entity.Brick
+import net.eviera.invasores.helper.Const
 import org.newdawn.slick.tiled.TiledMap
 
 object TiledMapManager {

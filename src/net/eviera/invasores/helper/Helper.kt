@@ -1,6 +1,8 @@
-import Const.SP_SIZE
-import Const.ALIEN_START_X
-import Const.ALIEN_START_Y
+package net.eviera.invasores.helper
+
+import net.eviera.invasores.helper.Const.ALIEN_START_X
+import net.eviera.invasores.helper.Const.ALIEN_START_Y
+import net.eviera.invasores.helper.Const.SP_SIZE
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.util.*
@@ -14,7 +16,7 @@ object Helper {
 
     fun convertTileCoordToPixelCoord(tileCoord: Int) = tileCoord * Const.SP_SIZE
 
-    fun convertPixelCoordToTileCoord(pixelCoord: Float) = BigDecimal((pixelCoord / Const.SP_SIZE).toDouble()).setScale(1, RoundingMode.DOWN).toInt()
+    fun convertPixelCoordToTileCoord(pixelCoord: Float) = BigDecimal((pixelCoord / SP_SIZE).toDouble()).setScale(1, RoundingMode.DOWN).toInt()
 
 
 }

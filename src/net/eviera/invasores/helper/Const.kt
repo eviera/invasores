@@ -1,3 +1,5 @@
+package net.eviera.invasores.helper
+
 object Const {
 
     enum class GAME_TILES_ID {

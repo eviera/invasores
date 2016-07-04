@@ -1,5 +1,11 @@
+import net.eviera.invasores.entity.Alien
+import net.eviera.invasores.entity.Brick
+import net.eviera.invasores.entity.Player
+import net.eviera.invasores.helper.Const
+import net.eviera.invasores.helper.Helper
+import net.eviera.invasores.manager.CollisionManager
+import net.eviera.invasores.manager.TiledMapManager
 import org.newdawn.slick.*
-import org.newdawn.slick.tiled.TiledMap
 import org.newdawn.slick.util.ResourceLoader
 import java.awt.Font
 
@@ -34,7 +40,7 @@ class Invasores : BasicGame("Invasores") {
      */
     var movimiento : Const.MOV = Const.MOV.H;
 
-
+    val score = 0
 
 
     override fun init(gc: GameContainer?) {
@@ -45,7 +51,7 @@ class Invasores : BasicGame("Invasores") {
         //Cargo la spritesheet
         val sprites = SpriteSheet(Image("/resources/images/sprites_32.png"), Const.SP_SIZE.toInt(), Const.SP_SIZE.toInt())
 
-        //Levanto el TiledMapManager
+        //Levanto el net.eviera.invasores.manager.TiledMapManager
         TiledMapManager.init();
 
         //Cargo la nave del jugador

@@ -1,4 +1,9 @@
-import org.newdawn.slick.Image
+package net.eviera.invasores.entity
+
+import net.eviera.invasores.helper.Const
+import net.eviera.invasores.helper.Helper
+import net.eviera.invasores.manager.CollisionManager
+import net.eviera.invasores.manager.TiledMapManager
 import org.newdawn.slick.Sound
 import java.util.*
 
