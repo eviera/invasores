@@ -74,6 +74,9 @@ class Invasores : BasicGame("Invasores") {
                 Sound("resources/sounds/brick_break_3.wav"), Sound("resources/sounds/brick_break_4.wav")))
         Alien.Sounds.init(Sound("resources/sounds/alien_explosion.wav"))
 
+        //Escucho eventos
+        EventManager.addScoreListener(this)
+
     }
 
     override fun update(gc: GameContainer?, delta: Int) {

@@ -1,7 +1,9 @@
 package net.eviera.invasores.entity
 
+import net.eviera.invasores.event.ScoreEvent
 import net.eviera.invasores.helper.Const
 import net.eviera.invasores.manager.CollisionManager
+import net.eviera.invasores.manager.EventManager
 import org.newdawn.slick.Animation
 import org.newdawn.slick.GameContainer
 import org.newdawn.slick.Graphics
@@ -39,6 +41,9 @@ class Alien (x: Float, y: Float, var alienXDisplacement: Float, var alienYDispla
 
     override fun collisionWith(collisioned: CollisionableRectangle) {
         Sounds.playExplosion()
+
+        EventManager.publish(ScoreEvent(100))
+
         remove()
     }
 

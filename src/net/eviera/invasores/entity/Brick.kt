@@ -28,6 +28,8 @@ class Brick (val tileX: Int, val tileY: Int) : CollisionableRectangle(Helper.con
     fun remove() {
         CollisionManager.removeBrick(this)
         alive = false
+
+        //TODO esto tiene que ser un evento
         TiledMapManager.remove(Helper.convertPixelCoordToTileCoord(x), Helper.convertPixelCoordToTileCoord(y))
     }
 
@@ -37,6 +39,8 @@ class Brick (val tileX: Int, val tileY: Int) : CollisionableRectangle(Helper.con
         if (status == 0) {
             remove()
         } else {
+
+            //TODO esto tiene que ser un evento
             TiledMapManager.change(Helper.convertPixelCoordToTileCoord(x), Helper.convertPixelCoordToTileCoord(y), statusValues[status].tileId)
         }
 
