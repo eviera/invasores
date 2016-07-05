@@ -44,4 +44,6 @@ object Const {
 
     val BRICK_QUANTITY = 20
 
+    val SCORE_ALIEN_HIT = 100
+
 }

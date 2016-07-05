@@ -41,9 +41,7 @@ class Alien (x: Float, y: Float, var alienXDisplacement: Float, var alienYDispla
 
     override fun collisionWith(collisioned: CollisionableRectangle) {
         Sounds.playExplosion()
-
-        EventManager.publish(ScoreEvent(100))
-
+        EventManager.publish(ScoreEvent(Const.SCORE_ALIEN_HIT))
         remove()
     }
 

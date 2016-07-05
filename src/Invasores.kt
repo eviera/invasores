@@ -1,11 +1,16 @@
 import net.eviera.invasores.entity.Alien
 import net.eviera.invasores.entity.Brick
 import net.eviera.invasores.entity.Player
+import net.eviera.invasores.event.BrickEvent
+import net.eviera.invasores.event.Event
+import net.eviera.invasores.event.Listener
+import net.eviera.invasores.event.ScoreEvent
 import net.eviera.invasores.helper.Const
 import net.eviera.invasores.helper.Helper
 import net.eviera.invasores.manager.CollisionManager
-import net.eviera.invasores.manager.TiledMapManager
+import net.eviera.invasores.manager.EventManager
 import org.newdawn.slick.*
+import org.newdawn.slick.tiled.TiledMap
 import org.newdawn.slick.util.ResourceLoader
 import java.awt.Font
 
@@ -14,6 +19,7 @@ class Invasores : BasicGame("Invasores") {
     val player = Player()
     val aliens = arrayOfNulls<Alien>(Const.ALIEN_COLS * Const.ALIEN_ROWS)
     lateinit var fontComputer24: TrueTypeFont
+    lateinit var tiledMap: TiledMap
 
     /**
      * Mantiene la posicion vertical de los aliens (arranca en el extremo izquierdo)
@@ -40,7 +46,7 @@ class Invasores : BasicGame("Invasores") {
      */
     var movimiento : Const.MOV = Const.MOV.H;
 
-    val score = 0
+    var score = 0
 
 
     override fun init(gc: GameContainer?) {
@@ -51,8 +57,18 @@ class Invasores : BasicGame("Invasores") {
         //Cargo la spritesheet
         val sprites = SpriteSheet(Image("/resources/images/sprites_32.png"), Const.SP_SIZE.toInt(), Const.SP_SIZE.toInt())
 
-        //Levanto el net.eviera.invasores.manager.TiledMapManager
-        TiledMapManager.init();
+        //Cargo el tiledMap y computo los ladrillos del muro
+        tiledMap = TiledMap("/resources/images/tiledmap.tmx")
+        //Busco los ladrillos en el tiledMap, y cuando los encuentro, los creo
+        for (x in 0..Const.GAME_TILES_WIDTH - 1) {
+            for (y in 0..Const.GAME_TILES_HEIGHT - 1) {
+                val tileId = tiledMap.getTileId(x, y, Const.GAME_TILES_LAYER)
+                if (tileId == Const.GAME_TILES_ID.BRICK_ENTERO.ordinal) {
+                    val brick = Brick(x, y)
+                    brick.init()
+                }
+            }
+        }
 
         //Cargo la nave del jugador
         player.init(sprites.getSprite(0, 1), sprites.getSprite(1, 1))
@@ -75,8 +91,18 @@ class Invasores : BasicGame("Invasores") {
         Alien.Sounds.init(Sound("resources/sounds/alien_explosion.wav"))
 
         //Escucho eventos
-        EventManager.addScoreListener(this)
+        EventManager.addScoreListener(object : Listener {
+            override fun fired(e: Event) {
+                score += (e as ScoreEvent).score
+            }
+        })
 
+        EventManager.addBrickListener(object : Listener {
+            override fun fired(e: Event) {
+                val brickEvent = (e as BrickEvent)
+                tiledMap.setTileId(brickEvent.x, brickEvent.y, Const.GAME_TILES_LAYER, brickEvent.tileId)
+            }
+        })
     }
 
     override fun update(gc: GameContainer?, delta: Int) {
@@ -148,6 +174,8 @@ class Invasores : BasicGame("Invasores") {
         //Chequeo las colisiones
         CollisionManager.checkCollision()
 
+        //Dispatcheo los eventos
+        EventManager.dispatchEvents()
 
     }
 
@@ -159,12 +187,12 @@ class Invasores : BasicGame("Invasores") {
         //Rendereo elementos de pantalla
 
         //Mapa
-        TiledMapManager.render()
+        tiledMap.render(0, 0)
 
         //Scoreboard
         g.color = Color.white
         g.drawLine(0f, Const.GAME_HEIGHT - Const.SP_SIZE + 5, Const.GAME_WIDTH * 1f, Const.GAME_HEIGHT - Const.SP_SIZE + 5)
-        fontComputer24.drawString(0f, Const.GAME_HEIGHT - 50f, "POINTS")
+        fontComputer24.drawString(0f, Const.GAME_HEIGHT - 50f, "POINTS: ${score}")
 
 
         player.render(gc, g)

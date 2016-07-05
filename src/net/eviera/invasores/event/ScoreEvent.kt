@@ -1,5 +1,5 @@
 package net.eviera.invasores.event
 
-class ScoreEvent(score: Int) : Event() {
+class ScoreEvent(val score: Int) : Event(Type.SCORE) {
 
 }

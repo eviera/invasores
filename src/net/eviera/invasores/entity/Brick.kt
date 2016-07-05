@@ -1,9 +1,10 @@
 package net.eviera.invasores.entity
 
+import net.eviera.invasores.event.BrickEvent
 import net.eviera.invasores.helper.Const
 import net.eviera.invasores.helper.Helper
 import net.eviera.invasores.manager.CollisionManager
-import net.eviera.invasores.manager.TiledMapManager
+import net.eviera.invasores.manager.EventManager
 import org.newdawn.slick.Sound
 import java.util.*
 
@@ -28,9 +29,7 @@ class Brick (val tileX: Int, val tileY: Int) : CollisionableRectangle(Helper.con
     fun remove() {
         CollisionManager.removeBrick(this)
         alive = false
-
-        //TODO esto tiene que ser un evento
-        TiledMapManager.remove(Helper.convertPixelCoordToTileCoord(x), Helper.convertPixelCoordToTileCoord(y))
+        EventManager.publish(BrickEvent(Helper.convertPixelCoordToTileCoord(x), Helper.convertPixelCoordToTileCoord(y), Const.GAME_TILES_ID.NULL.ordinal))
     }
 
     override fun collisionWith(collisioned: CollisionableRectangle) {
@@ -39,9 +38,7 @@ class Brick (val tileX: Int, val tileY: Int) : CollisionableRectangle(Helper.con
         if (status == 0) {
             remove()
         } else {
-
-            //TODO esto tiene que ser un evento
-            TiledMapManager.change(Helper.convertPixelCoordToTileCoord(x), Helper.convertPixelCoordToTileCoord(y), statusValues[status].tileId)
+            EventManager.publish(BrickEvent(Helper.convertPixelCoordToTileCoord(x), Helper.convertPixelCoordToTileCoord(y), statusValues[status].tileId))
         }
 
     }
