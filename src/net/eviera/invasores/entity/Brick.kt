@@ -34,7 +34,7 @@ class Brick (val tileX: Int, val tileY: Int) : CollisionableRectangle(Helper.con
 
     override fun collisionWith(collisioned: CollisionableRectangle) {
         status--
-        Sounds.playBreakRnd()
+        playBreakRnd()
         if (status == 0) {
             remove()
         } else {

@@ -71,7 +71,7 @@ class Player : CollisionableRectangle(Const.PLAYER_START_X, Const.PLAYER_START_Y
             isShooting = true
             shoot = Shoot(x, y, shootSprite)
             shoot.init(Shoot.To.SHOOT_TO_ALIEN)
-            shootSound.play()
+            playShoot()
         }
     }
 

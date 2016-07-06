@@ -13,6 +13,7 @@ import org.newdawn.slick.*
 import org.newdawn.slick.tiled.TiledMap
 import org.newdawn.slick.util.ResourceLoader
 import java.awt.Font
+import java.util.*
 
 class Invasores : BasicGame("Invasores") {
 
@@ -20,6 +21,7 @@ class Invasores : BasicGame("Invasores") {
     val aliens = arrayOfNulls<Alien>(Const.ALIEN_COLS * Const.ALIEN_ROWS)
     lateinit var fontComputer24: TrueTypeFont
     lateinit var tiledMap: TiledMap
+    val ran = Random()
 
     /**
      * Mantiene la posicion vertical de los aliens (arranca en el extremo izquierdo)
@@ -45,6 +47,11 @@ class Invasores : BasicGame("Invasores") {
      * Determina si se mueve en forma horizontal o vertical (arranca en horizontal)
      */
     var movimiento : Const.MOV = Const.MOV.H;
+
+    /**
+     * Va sumando los deltas (milisegundos). Cuando superan el ALIEN_START_FIRE_RATE_MILLIS pueden disparar
+     */
+    var aliensShootDeltaCounter = 0
 
     var score = 0
 
@@ -78,7 +85,7 @@ class Invasores : BasicGame("Invasores") {
             for (c in 0..Const.ALIEN_COLS - 1) {
                 val alienAnimation = Animation(arrayOf(sprites.getSprite(f * 2, 0), sprites.getSprite(f * 2 + 1, 0)), Helper.getRandomAnimationInterval())
                 val alien = Alien(Helper.getAlienColPos(colDisp, c), Helper.getAlienRowPos(f), 0f, 0f)
-                alien.init(alienAnimation)
+                alien.init(alienAnimation, sprites.getSprite(2, 1))
                 aliens[f * Const.ALIEN_COLS + c] = alien
             }
         }
@@ -87,7 +94,7 @@ class Invasores : BasicGame("Invasores") {
         Player.Sounds.init(Sound("resources/sounds/player_shoot.wav"))
         Brick.Sounds.init(arrayOf(Sound("resources/sounds/brick_break_1.wav"), Sound("resources/sounds/brick_break_2.wav"),
                 Sound("resources/sounds/brick_break_3.wav"), Sound("resources/sounds/brick_break_4.wav")))
-        Alien.Sounds.init(Sound("resources/sounds/alien_explosion.wav"))
+        Alien.Sounds.init(Sound("resources/sounds/alien_explosion.wav"), Sound("resources/sounds/alien_shoot.wav"))
 
         //Escucho eventos
         EventManager.addScoreListener(object : Listener {
@@ -165,9 +172,21 @@ class Invasores : BasicGame("Invasores") {
         }
 
 
+        //Determino si paso tiempo suficiente para que los aliens puedan disparar
+        var hasAlienPermissionToFire = false
+        aliensShootDeltaCounter += delta
+        if (aliensShootDeltaCounter >= Const.ALIEN_START_FIRE_RATE_MILLIS) {
+            hasAlienPermissionToFire = true
+            aliensShootDeltaCounter = 0
+        }
         //Actualizo los aliens
         for (alien in aliens) {
-            alien?.update(gc, correctedDelta, alienXDisplacement, alienYDisplacement)
+            var hasToShoot = false
+            if (hasAlienPermissionToFire) {
+                hasToShoot = ran.nextInt(3) == 0
+                hasAlienPermissionToFire = false
+            }
+            alien?.update(gc, correctedDelta, alienXDisplacement, alienYDisplacement, hasToShoot)
         }
 
         //Chequeo las colisiones
