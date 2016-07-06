@@ -12,6 +12,7 @@ object Const {
         ALIEN_3_2,
         NAVE,
         NAVE_SHOOT,
+        ALIEN_SHOOT,
         BRICK_ENTERO,
         BRICK_PARTIDO,
         BRICK_ROTO,

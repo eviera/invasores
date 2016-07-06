@@ -48,7 +48,6 @@ class Invasores : BasicGame("Invasores") {
 
     var score = 0
 
-
     override fun init(gc: GameContainer?) {
         if (gc == null ) throw RuntimeException("Error de gc null")
 
