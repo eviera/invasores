@@ -84,7 +84,7 @@ class Invasores : BasicGame("Invasores") {
             val colDisp = if (f == 1 ) Const.ALIEN_X_SHIFT else 1f
             for (c in 0..Const.ALIEN_COLS - 1) {
                 val alienAnimation = Animation(arrayOf(sprites.getSprite(f * 2, 0), sprites.getSprite(f * 2 + 1, 0)), Helper.getRandomAnimationInterval())
-                val alien = Alien(Helper.getAlienColPos(colDisp, c), Helper.getAlienRowPos(f), 0f, 0f)
+                val alien = Alien(Helper.getAlienColPos(colDisp, c), Helper.getAlienRowPos(f))
                 alien.init(alienAnimation, sprites.getSprite(2, 1))
                 aliens[f * Const.ALIEN_COLS + c] = alien
             }
@@ -179,12 +179,18 @@ class Invasores : BasicGame("Invasores") {
             hasAlienPermissionToFire = true
             aliensShootDeltaCounter = 0
         }
+
+
+
         //Actualizo los aliens
         for (alien in aliens) {
             var hasToShoot = false
             if (hasAlienPermissionToFire) {
                 hasToShoot = ran.nextInt(3) == 0
-                hasAlienPermissionToFire = false
+
+                if (hasToShoot) {
+                    hasAlienPermissionToFire = false
+                }
             }
             alien?.update(gc, correctedDelta, alienXDisplacement, alienYDisplacement, hasToShoot)
         }

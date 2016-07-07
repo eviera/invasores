@@ -6,7 +6,7 @@ import net.eviera.invasores.manager.CollisionManager
 import net.eviera.invasores.manager.EventManager
 import org.newdawn.slick.*
 
-class Alien (x: Float, y: Float, var alienXDisplacement: Float, var alienYDisplacement: Float) : CollisionableRectangle(x, y, Const.SP_SIZE, Const.SP_SIZE){
+class Alien (x: Float, y: Float) : CollisionableRectangle(x, y, Const.SP_SIZE, Const.SP_SIZE){
 
     lateinit var sprite: Animation
     var alive: Boolean = true
@@ -22,8 +22,9 @@ class Alien (x: Float, y: Float, var alienXDisplacement: Float, var alienYDispla
 
     fun update(gc: GameContainer, delta: Int, alienXDisplacement: Float, alienYDisplacement: Float, hasToShoot: Boolean) {
         if (alive) {
-            this.alienXDisplacement = alienXDisplacement
-            this.alienYDisplacement = alienYDisplacement
+            x += alienXDisplacement
+            y += alienYDisplacement
+
             if (hasToShoot) {
                 shoot()
             }
@@ -40,8 +41,6 @@ class Alien (x: Float, y: Float, var alienXDisplacement: Float, var alienYDispla
 
     fun render(gc: GameContainer, g: Graphics) {
         if (alive) {
-            x += alienXDisplacement
-            y += alienYDisplacement
             sprite.draw(x, y)
 
             if (isShooting) {
@@ -58,6 +57,7 @@ class Alien (x: Float, y: Float, var alienXDisplacement: Float, var alienYDispla
     fun shoot() {
         if (!isShooting) {
             isShooting = true
+            println("x ${x} y ${y}")
             shoot = Shoot(x, y, shootSprite)
             shoot.init(Shoot.To.SHOOT_TO_PLAYER)
             playShoot()

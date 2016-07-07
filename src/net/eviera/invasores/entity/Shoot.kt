@@ -25,12 +25,25 @@ class Shoot (x: Float, y: Float, val sprite: Image) : CollisionableRectangle(x, 
     }
 
     fun update(gc: GameContainer, delta: Int) {
-        val displacement = Const.PLAYER_SHOOT_SPEED * delta
-        val yDest = y - displacement
-        if (yDest < 0) {
-            remove()
+        when(to) {
+            To.SHOOT_TO_ALIEN -> {
+                val displacement = Const.PLAYER_SHOOT_SPEED * delta
+                val yDest = y - displacement
+                if (yDest < 0) {
+                    remove()
+                }
+                y = yDest
+            }
+
+            To.SHOOT_TO_PLAYER -> {
+                val displacement = Const.ALIEN_SHOOT_SPEED * delta
+                val yDest = y + displacement
+                if (yDest > Const.GAME_HEIGHT) {
+                    remove()
+                }
+                y = yDest
+            }
         }
-        y = yDest
 
     }
 
