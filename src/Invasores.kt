@@ -183,6 +183,8 @@ class Invasores : BasicGame("Invasores") {
 
 
         //Actualizo los aliens
+        //val aliveAliens = aliens.sumBy { a -> if (a?.alive!!) {1} else {0} }
+
         for (alien in aliens) {
             var hasToShoot = false
             if (hasAlienPermissionToFire) {

@@ -57,7 +57,6 @@ class Alien (x: Float, y: Float) : CollisionableRectangle(x, y, Const.SP_SIZE, C
     fun shoot() {
         if (!isShooting) {
             isShooting = true
-            println("x ${x} y ${y}")
             shoot = Shoot(x, y, shootSprite)
             shoot.init(Shoot.To.SHOOT_TO_PLAYER)
             playShoot()
