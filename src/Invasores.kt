@@ -1,10 +1,7 @@
 import net.eviera.invasores.entity.Alien
 import net.eviera.invasores.entity.Brick
 import net.eviera.invasores.entity.Player
-import net.eviera.invasores.event.BrickEvent
-import net.eviera.invasores.event.Event
-import net.eviera.invasores.event.Listener
-import net.eviera.invasores.event.ScoreEvent
+import net.eviera.invasores.event.*
 import net.eviera.invasores.helper.Const
 import net.eviera.invasores.helper.Helper
 import net.eviera.invasores.manager.CollisionManager
@@ -19,6 +16,12 @@ class Invasores : BasicGame("Invasores") {
 
     val player = Player()
     val aliens = arrayOfNulls<Alien>(Const.ALIEN_COLS * Const.ALIEN_ROWS)
+
+    /**
+     * Mantiene la cuenta de los aliens vivos
+     */
+    var aliensAliveCount = aliens.size
+
     lateinit var fontComputer24: TrueTypeFont
     lateinit var tiledMap: TiledMap
     val ran = Random()
@@ -109,6 +112,16 @@ class Invasores : BasicGame("Invasores") {
                 tiledMap.setTileId(brickEvent.x, brickEvent.y, Const.GAME_TILES_LAYER, brickEvent.tileId)
             }
         })
+
+        EventManager.addAlienListener(object : Listener {
+            override fun fired(e: Event) {
+                val alienEvent = (e as AlienEvent)
+                if (alienEvent.alienAlive) {
+                    aliensAliveCount--
+                }
+            }
+        })
+
     }
 
     override fun update(gc: GameContainer?, delta: Int) {

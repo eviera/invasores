@@ -9,9 +9,10 @@ object EventManager {
     val listeners = HashMap<Event.Type, LinkedHashSet<Listener>>()   //Uso un HashSet para evitar duplicados
     val eventQueue = LinkedList<Event>()
 
-    fun  publish(event: Event) {
+    fun publish(event: Event) {
         eventQueue.push(event)
     }
+
 
     fun addScoreListener(listener: Listener) {
         addListener(Event.Type.SCORE, listener)
@@ -20,6 +21,15 @@ object EventManager {
     fun addBrickListener(listener: Listener) {
         addListener(Event.Type.BRICK, listener)
     }
+
+    fun addAlienListener(listener: Listener) {
+        addListener(Event.Type.ALIEN, listener)
+    }
+
+
+
+
+
 
     private fun addListener(type: Event.Type, listener: Listener) {
         var scoreListeners = listeners[type]

@@ -1,5 +1,6 @@
 package net.eviera.invasores.entity
 
+import net.eviera.invasores.event.AlienEvent
 import net.eviera.invasores.event.ScoreEvent
 import net.eviera.invasores.helper.Const
 import net.eviera.invasores.manager.CollisionManager
@@ -67,6 +68,7 @@ class Alien (x: Float, y: Float) : CollisionableRectangle(x, y, Const.SP_SIZE, C
     override fun collisionWith(collisioned: CollisionableRectangle) {
         playExplosion()
         EventManager.publish(ScoreEvent(Const.SCORE_ALIEN_HIT))
+        EventManager.publish(AlienEvent(false))
         remove()
     }
 

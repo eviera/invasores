@@ -5,6 +5,7 @@ open class Event(var type: Type) {
     enum class Type {
         SCORE,
         BRICK,
+        ALIEN,
     }
 
 }
