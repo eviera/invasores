@@ -1,5 +1,7 @@
 package net.eviera.invasores.helper
 
+import net.eviera.invasores.helper.Const.ALIEN_GAP_X
+import net.eviera.invasores.helper.Const.ALIEN_GAP_Y
 import net.eviera.invasores.helper.Const.ALIEN_START_X
 import net.eviera.invasores.helper.Const.ALIEN_START_Y
 import net.eviera.invasores.helper.Const.SP_SIZE
@@ -11,8 +13,8 @@ object Helper {
 
     fun getRandomAnimationInterval() = Random().nextInt(300) + 100
 
-    fun getAlienColPos(colDisp: Float, c: Int) = ALIEN_START_X * colDisp + c * SP_SIZE * 2.5f
-    fun getAlienRowPos(f: Int) = ALIEN_START_Y + SP_SIZE * f * 1.3f
+    fun getAlienColPos(colDisp: Float, c: Int) = ALIEN_START_X * colDisp + c * SP_SIZE * ALIEN_GAP_X
+    fun getAlienRowPos(f: Int) = ALIEN_START_Y + SP_SIZE * f * ALIEN_GAP_Y
 
     fun convertTileCoordToPixelCoord(tileCoord: Int) = tileCoord * Const.SP_SIZE
 
