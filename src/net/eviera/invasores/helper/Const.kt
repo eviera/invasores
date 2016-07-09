@@ -9,13 +9,38 @@ object Const {
         ALIEN_2_1,
         ALIEN_2_2,
         ALIEN_3_1,
-        ALIEN_3_2,
+        ALIEN_3_2,              //6
         NAVE,
         NAVE_SHOOT,
         ALIEN_SHOOT,
+        PLACEHOLDER_10,
+        PLACEHOLDER_11,
+        PLACEHOLDER_12,          //12
+        ALIEN_EXPLOSION_1,
+        ALIEN_EXPLOSION_2,
+        ALIEN_EXPLOSION_3,
+        PLACEHOLDER_16,
+        PLACEHOLDER_17,
+        PLACEHOLDER_18,          //18
+        PLACEHOLDER_19,
+        PLACEHOLDER_20,
+        PLACEHOLDER_21,
+        PLACEHOLDER_22,
+        PLACEHOLDER_23,
+        PLACEHOLDER_24,          //24
+        PLACEHOLDER_25,
+        PLACEHOLDER_26,
+        PLACEHOLDER_27,
+        PLACEHOLDER_28,
+        PLACEHOLDER_29,
+        PLACEHOLDER_30,          //30
+        PLACEHOLDER_31,
+        PLACEHOLDER_32,
+        PLACEHOLDER_33,
+        //Los ladrillos estan al final porque hay un bug que ocurre cuando un sprite tiene todos los bordes llenos (se ve un borde fantasma en los sprites colindantes)
         BRICK_ENTERO,
         BRICK_PARTIDO,
-        BRICK_ROTO,
+        BRICK_ROTO,             //36
     }
 
     enum class MOV {
@@ -45,7 +70,8 @@ object Const {
     val ALIEN_END_X = GAME_WIDTH - (ALIEN_GAP_FROM_BORDERS + Helper.getAlienColPos(ALIEN_X_SHIFT, ALIEN_COLS - 1) + ALIEN_GAP_FROM_BORDERS) //Cuanto se pueden desplazar los aliens a la derecha es el ancho de la pantalla menos ancho de todos los aliens dibujados menos los dos bordes
     val ALIEN_START_Y = SP_SIZE / 3f
     val ALIEN_START_FIRE_RATE_MILLIS = 500 //cada estos milisegundos los aliens pueden disparar
-    val ALIEN_SHOOT_SPEED = 1f
+    val ALIEN_SHOOT_SPEED = 0.9f
+    val ALIEN_EXPLODING_TIME = 150 //en millis
 
     val BRICK_QUANTITY = 20
 

@@ -83,12 +83,14 @@ class Invasores : BasicGame("Invasores") {
         player.init(sprites.getSprite(0, 1), sprites.getSprite(1, 1))
 
         //Cargo los aliens
+        val alienExplosion = Animation(arrayOf(sprites.getSprite(0, 2), sprites.getSprite(1, 2), sprites.getSprite(2, 2)), Const.ALIEN_EXPLODING_TIME / 3)
+        alienExplosion.setLooping(false)
         for (f in 0..Const.ALIEN_ROWS - 1) {
             val colDisp = if (f == 1 ) Const.ALIEN_X_SHIFT else 1f
             for (c in 0..Const.ALIEN_COLS - 1) {
                 val alienAnimation = Animation(arrayOf(sprites.getSprite(f * 2, 0), sprites.getSprite(f * 2 + 1, 0)), Helper.getRandomAnimationInterval())
                 val alien = Alien(Helper.getAlienColPos(colDisp, c), Helper.getAlienRowPos(f))
-                alien.init(alienAnimation, sprites.getSprite(2, 1))
+                alien.init(alienAnimation, sprites.getSprite(2, 1), alienExplosion)
                 aliens[f * Const.ALIEN_COLS + c] = alien
             }
         }
@@ -116,7 +118,7 @@ class Invasores : BasicGame("Invasores") {
         EventManager.addAlienListener(object : Listener {
             override fun fired(e: Event) {
                 val alienEvent = (e as AlienEvent)
-                if (alienEvent.alienAlive) {
+                if (!alienEvent.alienAlive) {
                     aliensAliveCount--
                 }
             }
@@ -196,18 +198,19 @@ class Invasores : BasicGame("Invasores") {
 
 
         //Actualizo los aliens
-        //val aliveAliens = aliens.sumBy { a -> if (a?.alive!!) {1} else {0} }
-
+        var alienToShoot = -1
+        if (hasAlienPermissionToFire && ran.nextInt(1) == 0) {
+            alienToShoot = ran.nextInt(aliensAliveCount)
+            hasAlienPermissionToFire = false
+        }
+        var i = 0
         for (alien in aliens) {
-            var hasToShoot = false
-            if (hasAlienPermissionToFire) {
-                hasToShoot = ran.nextInt(3) == 0
-
-                if (hasToShoot) {
-                    hasAlienPermissionToFire = false
+            if (alien != null) {
+                if (alien.alive) {
+                    i++
                 }
+                alien.update(gc, correctedDelta, alienXDisplacement, alienYDisplacement, alienToShoot == i)
             }
-            alien?.update(gc, correctedDelta, alienXDisplacement, alienYDisplacement, hasToShoot)
         }
 
         //Chequeo las colisiones

@@ -1,5 +1,10 @@
 #ToDo
+##Prio.1
+- Muerte player
+- Alinear correctamente texto del footer
 
+
+##Prio.2
 - Nave nodriza
 - Cambiar los aliens 2 y 3 por otros dibujos
 - Pantalla intro
@@ -10,17 +15,17 @@
   - Incrementar el rate of fire
   - Contador de vidas
 - ~~Tiros mas lentos-~~
-- Explosiones
+- ~~Explosion alien~~
+- Explosion nave
 - ~~Mas bricks~~
 - ~~Mas aliens mas compacto el espacio~~
 - Control de volumen
 
 #Bugs
-- Debajo de los aliens al principio aparecen unas lineas
+- ~~Debajo de los aliens al principio aparecen unas lineas (es un bug cuando un tile esta todo lleno, como los bricks)~~
 
 #NiceToHave
-
 - Musica intro
 - Distintos tipos de tiros y score segun alien
 - Arte fijo o movil dentro del juego, de fondo
-- Tiros mas 'finos'. Que el anchod del tiro sea de 8 pixels y no de 32
+- Tiros mas 'finos'. Que el ancho del tiro sea de 8 pixels y no de 32
