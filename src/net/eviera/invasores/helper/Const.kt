@@ -13,7 +13,7 @@ object Const {
         NAVE,
         NAVE_SHOOT,
         ALIEN_SHOOT,
-        PLACEHOLDER_10,
+        NAVE_SCORE,
         PLACEHOLDER_11,
         PLACEHOLDER_12,          //12
         ALIEN_EXPLOSION_1,
@@ -53,6 +53,7 @@ object Const {
     val GAME_WIDTH = GAME_TILES_WIDTH * 32      //px
     val GAME_HEIGHT = GAME_TILES_HEIGHT * 32    //px
     val SP_SIZE = 32f
+    val FONT_SIZE = 24f
 
     val PLAYER_START_X: Float = GAME_WIDTH / 2f
     val PLAYER_START_Y: Float = GAME_HEIGHT - SP_SIZE * 2f

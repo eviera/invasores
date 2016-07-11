@@ -20,6 +20,7 @@
 - ~~Mas bricks~~
 - ~~Mas aliens mas compacto el espacio~~
 - Control de volumen
+- Quitar magic numbers
 
 #Bugs
 - ~~Debajo de los aliens al principio aparecen unas lineas (es un bug cuando un tile esta todo lleno, como los bricks)~~

@@ -24,6 +24,8 @@ class Invasores : BasicGame("Invasores") {
 
     lateinit var fontComputer24: TrueTypeFont
     lateinit var tiledMap: TiledMap
+    lateinit var playerScoreSprite: Image
+
     val ran = Random()
 
     /**
@@ -57,11 +59,12 @@ class Invasores : BasicGame("Invasores") {
     var aliensShootDeltaCounter = 0
 
     var score = 0
+    var lives = 3
 
     override fun init(gc: GameContainer?) {
         if (gc == null ) throw RuntimeException("Error de gc null")
 
-        fontComputer24 = TrueTypeFont(Font.createFont(Font.TRUETYPE_FONT, ResourceLoader.getResourceAsStream("/resources/fonts/Computerfont.ttf")).deriveFont(24f), false)
+        fontComputer24 = TrueTypeFont(Font.createFont(Font.TRUETYPE_FONT, ResourceLoader.getResourceAsStream("/resources/fonts/Computerfont.ttf")).deriveFont(Const.FONT_SIZE), false)
 
         //Cargo la spritesheet
         val sprites = SpriteSheet(Image("/resources/images/sprites_32.png"), Const.SP_SIZE.toInt(), Const.SP_SIZE.toInt())
@@ -81,6 +84,7 @@ class Invasores : BasicGame("Invasores") {
 
         //Cargo la nave del jugador
         player.init(sprites.getSprite(0, 1), sprites.getSprite(1, 1))
+        playerScoreSprite = sprites.getSprite(3, 1)
 
         //Cargo los aliens
         val alienExplosion = Animation(arrayOf(sprites.getSprite(0, 2), sprites.getSprite(1, 2), sprites.getSprite(2, 2)), Const.ALIEN_EXPLODING_TIME / 3)
@@ -191,15 +195,13 @@ class Invasores : BasicGame("Invasores") {
         var hasAlienPermissionToFire = false
         aliensShootDeltaCounter += delta
         if (aliensShootDeltaCounter >= Const.ALIEN_START_FIRE_RATE_MILLIS) {
-            hasAlienPermissionToFire = true
+            hasAlienPermissionToFire = ran.nextInt(1) == 0
             aliensShootDeltaCounter = 0
         }
 
-
-
-        //Actualizo los aliens
+        //Actualizo los aliens y determino quien dispara (si puede)
         var alienToShoot = -1
-        if (hasAlienPermissionToFire && ran.nextInt(1) == 0) {
+        if (hasAlienPermissionToFire) {
             alienToShoot = ran.nextInt(aliensAliveCount)
             hasAlienPermissionToFire = false
         }
@@ -234,7 +236,10 @@ class Invasores : BasicGame("Invasores") {
         //Scoreboard
         g.color = Color.white
         g.drawLine(0f, Const.GAME_HEIGHT - Const.SP_SIZE + 5, Const.GAME_WIDTH * 1f, Const.GAME_HEIGHT - Const.SP_SIZE + 5)
-        fontComputer24.drawString(0f, Const.GAME_HEIGHT - 50f, "POINTS: ${score}")
+        fontComputer24.drawString(Const.FONT_SIZE / 2, Const.GAME_HEIGHT - Const.FONT_SIZE, "POINTS: ${score}")
+        for (liveCount in 0..lives - 1) {
+            g.drawImage(playerScoreSprite, Const.GAME_WIDTH - (liveCount * Const.SP_SIZE) - Const.SP_SIZE -  Const.FONT_SIZE / 3, Const.GAME_HEIGHT - Const.SP_SIZE)
+        }
 
 
         player.render(gc, g)
