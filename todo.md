@@ -1,7 +1,7 @@
 #ToDo
 ##Prio.1
 - Muerte player
-- Alinear correctamente texto del footer
+- ~~Alinear correctamente texto del footer~~
 
 
 ##Prio.2
