@@ -47,20 +47,22 @@ object Const {
         H,V
     }
 
+    val SP_SIZE = 32f
+    val FONT_SIZE = 24f
     val GAME_TILES_LAYER = 0
     val GAME_TILES_WIDTH = 36
     val GAME_TILES_HEIGHT = 18
     val GAME_WIDTH = GAME_TILES_WIDTH * 32      //px
     val GAME_HEIGHT = GAME_TILES_HEIGHT * 32    //px
-    val SP_SIZE = 32f
-    val FONT_SIZE = 24f
+    val GAME_FLOOR = GAME_HEIGHT - SP_SIZE + 5 //donde se dibuja el 'piso' del jugador, arriba del score
 
     val PLAYER_START_X: Float = GAME_WIDTH / 2f
     val PLAYER_START_Y: Float = GAME_HEIGHT - SP_SIZE * 2f
     val PLAYER_SPEED = 0.9f //0.9 pixels/milisegundo
     val PLAYER_SHOOT_SPEED = 0.8f
 
-    val ALIEN_START_SPEED = 0.1f
+    val ALIEN_SPEED_INIT = 0.09f
+    val ALIEN_SPEED_INCREMENT = 0.03f
     val ALIEN_ROWS = 3
     val ALIEN_COLS = 12
     val ALIEN_X_SHIFT = 2f //cuanto esta desplazada una fila de aliens de la otra en la coord x

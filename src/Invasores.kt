@@ -22,6 +22,11 @@ class Invasores : BasicGame("Invasores") {
      */
     var aliensAliveCount = aliens.size
 
+    /**
+     * La velocidad de los aliens, que se va incrementando cuando bajan
+     */
+    var alienSpeed = Const.ALIEN_SPEED_INIT
+
     lateinit var fontComputer24: TrueTypeFont
     lateinit var tiledMap: TiledMap
     lateinit var playerScoreSprite: Image
@@ -134,6 +139,10 @@ class Invasores : BasicGame("Invasores") {
         if (gc == null ) throw RuntimeException("Error de gc null")
         val input = gc.input
 
+        //TODO REMOVER!! Este es un hack para poder freezar la pantalla y ver que pasa
+        if (Helper.PAUSE_DEV_MODE_ONLY) { return }
+
+
         //Si hay mucho delta, lo seteo a un minimo de 20 (para cuando se draggea la ventana)
         var correctedDelta = delta
         if (correctedDelta > 20) {
@@ -153,10 +162,10 @@ class Invasores : BasicGame("Invasores") {
         var alienYDisplacement = 0f;
         when(movimiento) {
 
-            //Movimiento vertical
+            //Movimiento horizontal
             Const.MOV.H -> {
                 //Donde deberia dibujarse en X en el proximo frame los aliens
-                alienXDisplacement = Const.ALIEN_START_SPEED * correctedDelta * aliensDirection
+                alienXDisplacement = alienSpeed * correctedDelta * aliensDirection
                 var aliensXDest = aliensX + alienXDisplacement
                 //Si me paso del borde derecho
                 if (aliensXDest > Const.ALIEN_END_X) {
@@ -164,20 +173,24 @@ class Invasores : BasicGame("Invasores") {
                     aliensDirection = -1
                     alienXDisplacement = 0f
                     movimiento = Const.MOV.V
+                    //Incremento la velocidad de los aliens
+                    alienSpeed += Const.ALIEN_SPEED_INCREMENT
                 //Si me paso del borde izquierdo
                 } else if (aliensXDest < Const.ALIEN_START_X) {
                     aliensXDest = Const.ALIEN_START_X
                     aliensDirection = 1
                     alienXDisplacement = 0f
                     movimiento = Const.MOV.V
+                    //Incremento la velocidad de los aliens
+                    alienSpeed += Const.ALIEN_SPEED_INCREMENT
                 }
                 aliensX = aliensXDest
             }
 
-            //Movimiento horizontal
+            //Movimiento vertical
             Const.MOV.V -> {
                 //Hago el movimento en horizontal el doble de veloz que el vertical (porque queda mas lindo)
-                alienYDisplacement = (Const.ALIEN_START_SPEED  * 2) * correctedDelta
+                alienYDisplacement = (alienSpeed  * 2) * correctedDelta
                 var aliensYDest = aliensY + alienYDisplacement
                 //Si llegue al borde del escalon, me quedo ahi, e incremento el escalon al siguiente peldaño (un SP_SIZE mas)
                 if (aliensYDest > aliensEndY) {
@@ -235,10 +248,11 @@ class Invasores : BasicGame("Invasores") {
 
         //Scoreboard
         g.color = Color.white
-        g.drawLine(0f, Const.GAME_HEIGHT - Const.SP_SIZE + 5, Const.GAME_WIDTH * 1f, Const.GAME_HEIGHT - Const.SP_SIZE + 5)
-        fontComputer24.drawString(Const.FONT_SIZE / 2, Const.GAME_HEIGHT - Const.FONT_SIZE, "POINTS: ${score}")
+
+        g.drawLine(0f, Const.GAME_FLOOR, Const.GAME_WIDTH * 1f, Const.GAME_FLOOR)
+        fontComputer24.drawString(Const.FONT_SIZE / 2, Const.GAME_FLOOR + 2, "POINTS: ${score}")
         for (liveCount in 0..lives - 1) {
-            g.drawImage(playerScoreSprite, Const.GAME_WIDTH - (liveCount * Const.SP_SIZE) - Const.SP_SIZE -  Const.FONT_SIZE / 3, Const.GAME_HEIGHT - Const.SP_SIZE)
+            g.drawImage(playerScoreSprite, Const.GAME_WIDTH - (liveCount * Const.SP_SIZE) - Const.SP_SIZE -  Const.FONT_SIZE / 3, Const.GAME_FLOOR - 6)
         }
 
 

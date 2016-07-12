@@ -2,6 +2,9 @@
 ##Prio.1
 - Muerte player
 - ~~Alinear correctamente texto del footer~~
+- Muerte cuando los aliens llegan abajo
+  - Los aliens tienen que romper los ladrillos
+  - Cuando un alien colisiona con el player, el player muere
 
 
 ##Prio.2
@@ -11,7 +14,7 @@
 - Pantalla Game Over
 - HighScore
 - De la mecanica del juego
-  - Incrementar la velocidad de los aliens cuando bajan
+  - ~~Incrementar la velocidad de los aliens cuando bajan~~
   - Incrementar el rate of fire
   - Contador de vidas
 - ~~Tiros mas lentos-~~

@@ -21,4 +21,9 @@ object Helper {
     fun convertPixelCoordToTileCoord(pixelCoord: Float) = BigDecimal((pixelCoord / SP_SIZE).toDouble()).setScale(1, RoundingMode.DOWN).toInt()
 
 
+    var PAUSE_DEV_MODE_ONLY = false
+    fun DO_PAUSE_DEV_MODE_ONLY() {
+        PAUSE_DEV_MODE_ONLY = true
+    }
+
 }

@@ -1,6 +1,7 @@
 package net.eviera.invasores.entity
 
 import net.eviera.invasores.helper.Const
+import net.eviera.invasores.helper.Helper
 import net.eviera.invasores.manager.CollisionManager
 import org.newdawn.slick.GameContainer
 import org.newdawn.slick.Graphics
@@ -38,7 +39,7 @@ class Shoot (x: Float, y: Float, val sprite: Image) : CollisionableRectangle(x, 
             To.SHOOT_TO_PLAYER -> {
                 val displacement = Const.ALIEN_SHOOT_SPEED * delta
                 val yDest = y + displacement
-                if (yDest > Const.GAME_HEIGHT) {
+                if (yDest > Const.GAME_FLOOR - Const.SP_SIZE) {
                     remove()
                 }
                 y = yDest
