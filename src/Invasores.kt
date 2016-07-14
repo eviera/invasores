@@ -129,6 +129,9 @@ class Invasores : BasicGame("Invasores") {
                 val alienEvent = (e as AlienEvent)
                 if (!alienEvent.alienAlive) {
                     aliensAliveCount--
+                    if (aliensAliveCount < 0) {
+                        aliensAliveCount = 0
+                    }
                 }
             }
         })
