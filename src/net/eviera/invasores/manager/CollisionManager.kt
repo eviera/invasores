@@ -28,6 +28,7 @@ object CollisionManager {
     fun checkCollision() {
         val pairCollisions = mutableListOf<Pair<CollisionableRectangle, CollisionableRectangle>>()
 
+        //Tiros desde player a alien (y choques en ladrillos)
         if (shootToAlienCollisionables.isNotEmpty()) {
             for(shoot in shootToAlienCollisionables) {
                 for (alien in alienCollisionables) {
@@ -44,6 +45,7 @@ object CollisionManager {
 
         }
 
+        //Tiros desde alien a player (y choques en ladrillos)
         if (shootToPlayerCollisionables.isNotEmpty()) {
             for(shoot in shootToPlayerCollisionables) {
                 for (player in playerCollisionables) {
@@ -54,6 +56,17 @@ object CollisionManager {
                 for (brick in brickCollisionables) {
                     if (shoot.intersects(brick)) {
                         pairCollisions.add(Pair(shoot, brick))
+                    }
+                }
+            }
+        }
+
+        //Choque de aliens contra los ladrillos
+        if (alienCollisionables.isNotEmpty()) {
+            for(alien in alienCollisionables) {
+                for (brick in brickCollisionables) {
+                    if (alien.intersects(brick)) {
+                        pairCollisions.add(Pair(alien, brick))
                     }
                 }
             }

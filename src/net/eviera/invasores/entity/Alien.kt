@@ -86,11 +86,15 @@ class Alien (x: Float, y: Float) : CollisionableRectangle(x, y, Const.SP_SIZE, C
 
 
     override fun collisionWith(collisioned: CollisionableRectangle) {
-        playExplosion()
-        EventManager.publish(ScoreEvent(Const.SCORE_ALIEN_HIT))
-        EventManager.publish(AlienEvent(false))
-        alienExplosion.restart()
-        remove()
+        if (collisioned is Brick) {
+
+        } else {
+            playExplosion()
+            EventManager.publish(ScoreEvent(Const.SCORE_ALIEN_HIT))
+            EventManager.publish(AlienEvent(false))
+            alienExplosion.restart()
+            remove()
+        }
     }
 
     companion object Sounds {

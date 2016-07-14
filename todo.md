@@ -3,7 +3,7 @@
 - Muerte player
 - ~~Alinear correctamente texto del footer~~
 - Muerte cuando los aliens llegan abajo
-  - Los aliens tienen que romper los ladrillos
+  - ~~Los aliens tienen que romper los ladrillos~~
   - Cuando un alien colisiona con el player, el player muere
 
 

@@ -33,12 +33,18 @@ class Brick (val tileX: Int, val tileY: Int) : CollisionableRectangle(Helper.con
     }
 
     override fun collisionWith(collisioned: CollisionableRectangle) {
-        status--
-        playBreakRnd()
-        if (status == 0) {
+        if (collisioned is Alien) {
+            status = 0
+            playBreakRnd()
             remove()
         } else {
-            EventManager.publish(BrickEvent(Helper.convertPixelCoordToTileCoord(x), Helper.convertPixelCoordToTileCoord(y), statusValues[status].tileId))
+            status--
+            playBreakRnd()
+            if (status == 0) {
+                remove()
+            } else {
+                EventManager.publish(BrickEvent(Helper.convertPixelCoordToTileCoord(x), Helper.convertPixelCoordToTileCoord(y), statusValues[status].tileId))
+            }
         }
 
     }
