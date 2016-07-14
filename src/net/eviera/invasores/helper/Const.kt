@@ -62,7 +62,7 @@ object Const {
     val PLAYER_SHOOT_SPEED = 0.8f
 
     val ALIEN_SPEED_INIT = 0.09f
-    val ALIEN_SPEED_INCREMENT = 0.03f
+    val ALIEN_SPEED_INCREMENT = 0.015f
     val ALIEN_ROWS = 3
     val ALIEN_COLS = 12
     val ALIEN_X_SHIFT = 2f //cuanto esta desplazada una fila de aliens de la otra en la coord x
