@@ -1,5 +1,6 @@
 import net.eviera.invasores.entity.Alien
 import net.eviera.invasores.entity.Brick
+import net.eviera.invasores.entity.FlashMessage
 import net.eviera.invasores.entity.Player
 import net.eviera.invasores.event.*
 import net.eviera.invasores.helper.Const
@@ -66,6 +67,8 @@ class Invasores : BasicGame("Invasores") {
 
     var score = 0
     var lives = 3
+
+    var flashMessage = FlashMessage()
 
     override fun init(gc: GameContainer?) {
         if (gc == null ) throw RuntimeException("Error de gc null")
@@ -160,7 +163,6 @@ class Invasores : BasicGame("Invasores") {
                     SoundStore.get().soundVolume = 1f
                 }
             }
-            println(SoundStore.get().soundVolume)
         }
         if (input.isKeyPressed(Input.KEY_A)) {
             if (SoundStore.get().soundVolume > 0f) {
@@ -169,7 +171,6 @@ class Invasores : BasicGame("Invasores") {
                     SoundStore.get().soundVolume = 0f
                 }
             }
-            println(SoundStore.get().soundVolume)
         }
 
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
@@ -251,6 +252,8 @@ class Invasores : BasicGame("Invasores") {
             }
         }
 
+        flashMessage.update(delta)
+
         //Chequeo las colisiones
         CollisionManager.checkCollision()
 
@@ -283,6 +286,8 @@ class Invasores : BasicGame("Invasores") {
         for (alien in aliens) {
             alien?.render(gc, g)
         }
+
+        flashMessage.render(gc, g)
 
     }
 
