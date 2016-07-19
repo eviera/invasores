@@ -7,6 +7,7 @@ import net.eviera.invasores.helper.Helper
 import net.eviera.invasores.manager.CollisionManager
 import net.eviera.invasores.manager.EventManager
 import org.newdawn.slick.*
+import org.newdawn.slick.openal.SoundStore
 import org.newdawn.slick.tiled.TiledMap
 import org.newdawn.slick.util.ResourceLoader
 import java.awt.Font
@@ -150,6 +151,25 @@ class Invasores : BasicGame("Invasores") {
         var correctedDelta = delta
         if (correctedDelta > 20) {
             correctedDelta = 20
+        }
+
+        if (input.isKeyPressed(Input.KEY_Q)) {
+            if (SoundStore.get().soundVolume < 1f) {
+                SoundStore.get().soundVolume += 0.1f
+                if (SoundStore.get().soundVolume > 1f) {
+                    SoundStore.get().soundVolume = 1f
+                }
+            }
+            println(SoundStore.get().soundVolume)
+        }
+        if (input.isKeyPressed(Input.KEY_A)) {
+            if (SoundStore.get().soundVolume > 0f) {
+                SoundStore.get().soundVolume -= 0.1f
+                if (SoundStore.get().soundVolume < 0f) {
+                    SoundStore.get().soundVolume = 0f
+                }
+            }
+            println(SoundStore.get().soundVolume)
         }
 
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {

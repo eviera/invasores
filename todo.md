@@ -22,7 +22,9 @@
 - Explosion nave
 - ~~Mas bricks~~
 - ~~Mas aliens mas compacto el espacio~~
-- Control de volumen
+- ~~Control de volumen~~
+  - Visualizar el volumen cuando cambia (en porcentaje)
+- Persistir configuracion (volumen, highscore, etc)
 - Quitar magic numbers
 
 #Bugs
