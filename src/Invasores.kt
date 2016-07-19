@@ -108,6 +108,9 @@ class Invasores : BasicGame("Invasores") {
             }
         }
 
+        //Inicializo el flash
+        flashMessage.init(fontComputer24)
+
         //Cargo los sonidos
         Player.Sounds.init(Sound("resources/sounds/player_shoot.wav"))
         Brick.Sounds.init(arrayOf(Sound("resources/sounds/brick_break_1.wav"), Sound("resources/sounds/brick_break_2.wav"),
@@ -163,6 +166,8 @@ class Invasores : BasicGame("Invasores") {
                     SoundStore.get().soundVolume = 1f
                 }
             }
+            val volume = Math.round(SoundStore.get().soundVolume * 100)
+            flashMessage.show("VOLUME $volume")
         }
         if (input.isKeyPressed(Input.KEY_A)) {
             if (SoundStore.get().soundVolume > 0f) {
@@ -171,6 +176,8 @@ class Invasores : BasicGame("Invasores") {
                     SoundStore.get().soundVolume = 0f
                 }
             }
+            val volume = Math.round(SoundStore.get().soundVolume * 100)
+            flashMessage.show("VOLUME $volume")
         }
 
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
@@ -252,7 +259,7 @@ class Invasores : BasicGame("Invasores") {
             }
         }
 
-        flashMessage.update(delta)
+        flashMessage.update(gc, delta)
 
         //Chequeo las colisiones
         CollisionManager.checkCollision()

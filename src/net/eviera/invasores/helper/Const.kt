@@ -73,11 +73,12 @@ object Const {
     val ALIEN_END_X = GAME_WIDTH - (ALIEN_GAP_FROM_BORDERS + Helper.getAlienColPos(ALIEN_X_SHIFT, ALIEN_COLS - 1) + ALIEN_GAP_FROM_BORDERS) //Cuanto se pueden desplazar los aliens a la derecha es el ancho de la pantalla menos ancho de todos los aliens dibujados menos los dos bordes
     val ALIEN_START_Y = SP_SIZE / 3f
     val ALIEN_START_FIRE_RATE_MILLIS = 500 //cada estos milisegundos los aliens pueden disparar
-    val ALIEN_SHOOT_SPEED = 0.9f
+    val ALIEN_SHOOT_SPEED = 0.4f
     val ALIEN_EXPLODING_TIME = 150 //en millis
 
     val BRICK_QUANTITY = 20
 
     val SCORE_ALIEN_HIT = 100
 
+    val FLASH_TIMEOUT = 1 * 1000 //En segundos, cuanto se queda el mensaje flash activo
 }
