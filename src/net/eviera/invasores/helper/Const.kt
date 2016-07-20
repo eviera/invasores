@@ -2,6 +2,12 @@ package net.eviera.invasores.helper
 
 object Const {
 
+    enum class STATES {
+        STARTUP,
+        GAME,
+
+    }
+
     enum class GAME_TILES_ID {
         NULL,
         ALIEN_1_1,
