@@ -20,9 +20,18 @@ import java.util.*
 
 class GameState : BasicGameState() {
 
+
+    //Entidades
     val player = Player()
     val aliens = arrayOfNulls<Alien>(Const.ALIEN_COLS * Const.ALIEN_ROWS)
+    lateinit var fontComputer24: TrueTypeFont
+    lateinit var tiledMap: TiledMap
+    lateinit var playerScoreSprite: Image
+    val ran = Random()
+    var flashMessage = FlashMessage()
 
+
+    //Contadores
     /**
      * Mantiene la cuenta de los aliens vivos
      */
@@ -32,12 +41,6 @@ class GameState : BasicGameState() {
      * La velocidad de los aliens, que se va incrementando cuando bajan
      */
     var alienSpeed = Const.ALIEN_SPEED_INIT
-
-    lateinit var fontComputer24: TrueTypeFont
-    lateinit var tiledMap: TiledMap
-    lateinit var playerScoreSprite: Image
-
-    val ran = Random()
 
     /**
      * Mantiene la posicion vertical de los aliens (arranca en el extremo izquierdo)
@@ -70,9 +73,9 @@ class GameState : BasicGameState() {
     var aliensShootDeltaCounter = 0
 
     var score = 0
+
     var lives = 3
 
-    var flashMessage = FlashMessage()
 
 
     override fun init(gc: GameContainer?, game: StateBasedGame?) {
