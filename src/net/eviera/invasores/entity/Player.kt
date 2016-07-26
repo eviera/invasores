@@ -1,6 +1,7 @@
 package net.eviera.invasores.entity
 
 import net.eviera.invasores.event.AlienEvent
+import net.eviera.invasores.event.PlayerEvent
 import net.eviera.invasores.helper.Const
 import net.eviera.invasores.helper.Const.GAME_WIDTH
 import net.eviera.invasores.helper.Const.PLAYER_SPEED
@@ -18,7 +19,7 @@ class Player : CollisionableRectangle(Const.PLAYER_START_X, Const.PLAYER_START_Y
     var alive = true
     var isShooting = false
     var isExploding = false
-    var alienExplosionRemainingTime = Const.PLAYER_EXPLODING_TIME
+    var playerExplosionRemainingTime = Const.PLAYER_EXPLODING_TIME
 
     fun init(sprite: Image, shootSprite: Image, playerExplosion: Animation) {
         this.sprite = sprite
@@ -30,30 +31,39 @@ class Player : CollisionableRectangle(Const.PLAYER_START_X, Const.PLAYER_START_Y
     fun update(gc: GameContainer, delta: Int) {
         val input = gc.input
 
-        /*
-        delta tiene la cantidad de milisegundos que pasaron desde la iteracion anterior
-        playerDisplacement es la distancia en pixels que se tiene que mover. Por ejemplo si pasaron 8 milisegundos desde el ultimo frame
-        y PLAYER_SPEED (en pixels/milisegundo) es 0.5, entonces se va a mover 8 * 0.5 = 4 pixels en este frame
-        */
-        val playerDisplacement = PLAYER_SPEED * delta
+        if (alive) {
+            /*
+            delta tiene la cantidad de milisegundos que pasaron desde la iteracion anterior
+            playerDisplacement es la distancia en pixels que se tiene que mover. Por ejemplo si pasaron 8 milisegundos desde el ultimo frame
+            y PLAYER_SPEED (en pixels/milisegundo) es 0.5, entonces se va a mover 8 * 0.5 = 4 pixels en este frame
+            */
+            val playerDisplacement = PLAYER_SPEED * delta
 
-        //Controlo que no se pase de los bordes snappeando a 0 o a GAME_WIDTH - SP_SIZE (ancho del juego - tamaño del sprite)
-        if (input.isKeyDown(Input.KEY_LEFT)) {
-            var pxDest = x - playerDisplacement
-            if (pxDest < 0) pxDest = 0f
-            x = pxDest
+            //Controlo que no se pase de los bordes snappeando a 0 o a GAME_WIDTH - SP_SIZE (ancho del juego - tamaño del sprite)
+            if (input.isKeyDown(Input.KEY_LEFT)) {
+                var pxDest = x - playerDisplacement
+                if (pxDest < 0) pxDest = 0f
+                x = pxDest
+            }
+
+            if (input.isKeyDown(Input.KEY_RIGHT)) {
+                var pxDest = x + playerDisplacement
+                if (pxDest > GAME_WIDTH - SP_SIZE) pxDest = GAME_WIDTH - SP_SIZE
+                x = pxDest
+            }
+
+            if (input.isKeyPressed(Input.KEY_SPACE)) {
+                shoot()
+            }
         }
 
-        if (input.isKeyDown(Input.KEY_RIGHT)) {
-            var pxDest = x + playerDisplacement
-            if (pxDest > GAME_WIDTH - SP_SIZE) pxDest = GAME_WIDTH - SP_SIZE
-            x = pxDest
+        if (isExploding) {
+            playerExplosionRemainingTime -= delta
+            if (playerExplosionRemainingTime <= 0) {
+                isExploding = false
+                reset()
+            }
         }
-
-        if (input.isKeyPressed(Input.KEY_SPACE)) {
-            shoot()
-        }
-
 
         if (isShooting) {
             if (shoot.alive) {
@@ -66,9 +76,14 @@ class Player : CollisionableRectangle(Const.PLAYER_START_X, Const.PLAYER_START_Y
     }
 
     fun render(gc: GameContainer, g: Graphics) {
-        g.drawImage(sprite, x, y)
+        if (alive) {
+            g.drawImage(sprite, x, y)
+        }
         if (isShooting) {
             shoot.render(gc, g)
+        }
+        if (isExploding) {
+            playerExplosion.draw(x, y)
         }
     }
 
@@ -84,13 +99,16 @@ class Player : CollisionableRectangle(Const.PLAYER_START_X, Const.PLAYER_START_Y
 
     override fun collisionWith(collisioned: CollisionableRectangle) {
         playExplosion()
-        EventManager.publish(AlienEvent(false))
+        EventManager.publish(PlayerEvent(false))
         playerExplosion.restart()
-        reset()
+        isExploding = true
+        alive = false
     }
 
     private fun reset() {
-
+        alive = true
+        x = Const.PLAYER_START_X
+        y = Const.PLAYER_START_Y
     }
 
     companion object Sounds {
@@ -107,6 +125,5 @@ class Player : CollisionableRectangle(Const.PLAYER_START_X, Const.PLAYER_START_Y
             shootSound.play()
         }
     }
-
 
 }

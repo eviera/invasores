@@ -6,6 +6,7 @@ open class Event(var type: Type) {
         SCORE,
         BRICK,
         ALIEN,
+        PLAYER,
     }
 
 }
