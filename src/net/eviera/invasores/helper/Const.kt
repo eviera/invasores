@@ -66,6 +66,7 @@ object Const {
     val PLAYER_START_Y: Float = GAME_HEIGHT - SP_SIZE * 2f
     val PLAYER_SPEED = 0.9f //0.9 pixels/milisegundo
     val PLAYER_SHOOT_SPEED = 0.8f
+    val PLAYER_EXPLODING_TIME = 150 //en millis
 
     val ALIEN_SPEED_INIT = 0.09f
     val ALIEN_SPEED_INCREMENT = 0.015f

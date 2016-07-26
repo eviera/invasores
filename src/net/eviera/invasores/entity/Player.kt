@@ -1,10 +1,12 @@
 package net.eviera.invasores.entity
 
+import net.eviera.invasores.event.AlienEvent
 import net.eviera.invasores.helper.Const
 import net.eviera.invasores.helper.Const.GAME_WIDTH
 import net.eviera.invasores.helper.Const.PLAYER_SPEED
 import net.eviera.invasores.helper.Const.SP_SIZE
 import net.eviera.invasores.manager.CollisionManager
+import net.eviera.invasores.manager.EventManager
 import org.newdawn.slick.*
 
 class Player : CollisionableRectangle(Const.PLAYER_START_X, Const.PLAYER_START_Y, SP_SIZE, SP_SIZE) {
@@ -12,11 +14,16 @@ class Player : CollisionableRectangle(Const.PLAYER_START_X, Const.PLAYER_START_Y
     lateinit var sprite: Image
     lateinit var shoot: Shoot
     lateinit var shootSprite: Image
+    lateinit var playerExplosion: Animation
+    var alive = true
     var isShooting = false
+    var isExploding = false
+    var alienExplosionRemainingTime = Const.PLAYER_EXPLODING_TIME
 
-    fun init(sprite: Image, shootSprite: Image) {
+    fun init(sprite: Image, shootSprite: Image, playerExplosion: Animation) {
         this.sprite = sprite
         this.shootSprite = shootSprite
+        this.playerExplosion = playerExplosion
         CollisionManager.addPlayer(this)
     }
 
@@ -76,13 +83,25 @@ class Player : CollisionableRectangle(Const.PLAYER_START_X, Const.PLAYER_START_Y
     }
 
     override fun collisionWith(collisioned: CollisionableRectangle) {
+        playExplosion()
+        EventManager.publish(AlienEvent(false))
+        playerExplosion.restart()
+        reset()
+    }
+
+    private fun reset() {
 
     }
 
     companion object Sounds {
         lateinit var shootSound: Sound
-        fun init (shootSound: Sound) {
+        lateinit var playerExplosion: Sound
+        fun init (playerExplosion: Sound, shootSound: Sound) {
+            this.playerExplosion = playerExplosion
             this.shootSound = shootSound
+        }
+        fun playExplosion() {
+            playerExplosion.play()
         }
         fun playShoot() {
             shootSound.play()

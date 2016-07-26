@@ -103,7 +103,9 @@ class GameState : BasicGameState() {
         }
 
         //Cargo la nave del jugador
-        player.init(sprites.getSprite(0, 1), sprites.getSprite(1, 1))
+        val playerExplosion = Animation(arrayOf(sprites.getSprite(0, 2), sprites.getSprite(1, 2), sprites.getSprite(2, 2)), Const.ALIEN_EXPLODING_TIME / 3)
+        playerExplosion.setLooping(false)
+        player.init(sprites.getSprite(0, 1), sprites.getSprite(1, 1), playerExplosion)
         playerScoreSprite = sprites.getSprite(3, 1)
 
         //Cargo los aliens
@@ -123,7 +125,7 @@ class GameState : BasicGameState() {
         flashMessage.init(fontComputer24)
 
         //Cargo los sonidos
-        Player.Sounds.init(Sound("resources/sounds/player_shoot.wav"))
+        Player.Sounds.init(Sound("resources/sounds/player_explosion.wav"), Sound("resources/sounds/player_shoot.wav"))
         Brick.Sounds.init(arrayOf(Sound("resources/sounds/brick_break_1.wav"), Sound("resources/sounds/brick_break_2.wav"),
                 Sound("resources/sounds/brick_break_3.wav"), Sound("resources/sounds/brick_break_4.wav")))
         Alien.Sounds.init(Sound("resources/sounds/alien_explosion.wav"), Sound("resources/sounds/alien_shoot.wav"))
