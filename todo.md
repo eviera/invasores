@@ -25,6 +25,7 @@
 - ~~Control de volumen~~
   - ~~Visualizar el volumen cuando cambia (en porcentaje)~~
 - Persistir configuracion (volumen, highscore, etc)
+- Scores distintos para cada tipo de alien
 - Quitar magic numbers
 
 #Bugs
