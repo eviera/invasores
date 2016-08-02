@@ -1,6 +1,5 @@
 package net.eviera.invasores.entity
 
-import net.eviera.invasores.event.AlienEvent
 import net.eviera.invasores.event.PlayerEvent
 import net.eviera.invasores.helper.Const
 import net.eviera.invasores.helper.Const.GAME_WIDTH
@@ -9,22 +8,26 @@ import net.eviera.invasores.helper.Const.SP_SIZE
 import net.eviera.invasores.manager.CollisionManager
 import net.eviera.invasores.manager.EventManager
 import org.newdawn.slick.*
+import org.newdawn.slick.particles.ConfigurableEmitter
+import org.newdawn.slick.particles.ParticleSystem
 
 class Player : CollisionableRectangle(Const.PLAYER_START_X, Const.PLAYER_START_Y, SP_SIZE, SP_SIZE) {
 
     lateinit var sprite: Image
     lateinit var shoot: Shoot
     lateinit var shootSprite: Image
-    lateinit var playerExplosion: Animation
+    lateinit var playerExplosionEmitter: ConfigurableEmitter
+    lateinit var playerExplosionSystem: ParticleSystem
     var alive = true
     var isShooting = false
     var isExploding = false
-    var playerExplosionRemainingTime = Const.PLAYER_EXPLODING_TIME
+    var playerExplosionRemainingTime = 0f
 
-    fun init(sprite: Image, shootSprite: Image, playerExplosion: Animation) {
+    fun init(sprite: Image, shootSprite: Image, playerExplosionSystem: ParticleSystem) {
         this.sprite = sprite
         this.shootSprite = shootSprite
-        this.playerExplosion = playerExplosion
+        this.playerExplosionSystem = playerExplosionSystem
+        this.playerExplosionEmitter = playerExplosionSystem.getEmitter(0) as ConfigurableEmitter
         CollisionManager.addPlayer(this)
     }
 
@@ -63,6 +66,7 @@ class Player : CollisionableRectangle(Const.PLAYER_START_X, Const.PLAYER_START_Y
                 isExploding = false
                 reset()
             }
+            playerExplosionSystem.update(delta)
         }
 
         if (isShooting) {
@@ -83,7 +87,7 @@ class Player : CollisionableRectangle(Const.PLAYER_START_X, Const.PLAYER_START_Y
             shoot.render(gc, g)
         }
         if (isExploding) {
-            playerExplosion.draw(x, y)
+            playerExplosionSystem.render()
         }
     }
 
@@ -100,7 +104,9 @@ class Player : CollisionableRectangle(Const.PLAYER_START_X, Const.PLAYER_START_Y
     override fun collisionWith(collisioned: CollisionableRectangle) {
         playExplosion()
         EventManager.publish(PlayerEvent(false))
-        playerExplosion.restart()
+        playerExplosionSystem.reset()
+        playerExplosionEmitter.setPosition(x + (Const.SP_SIZE / 2), y + (Const.SP_SIZE / 2))
+        playerExplosionRemainingTime = playerExplosionEmitter.initialLife.max
         isExploding = true
         alive = false
     }
@@ -109,6 +115,7 @@ class Player : CollisionableRectangle(Const.PLAYER_START_X, Const.PLAYER_START_Y
         alive = true
         x = Const.PLAYER_START_X
         y = Const.PLAYER_START_Y
+        playerExplosionSystem.reset()
     }
 
     companion object Sounds {

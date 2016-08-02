@@ -19,7 +19,7 @@
   - Contador de vidas
 - ~~Tiros mas lentos-~~
 - ~~Explosion alien~~
-- Explosion nave
+- ~~Explosion nave~~
 - ~~Mas bricks~~
 - ~~Mas aliens mas compacto el espacio~~
 - ~~Control de volumen~~
