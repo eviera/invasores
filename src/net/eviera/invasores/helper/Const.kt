@@ -5,6 +5,7 @@ object Const {
     enum class STATES {
         STARTUP,
         GAME,
+        PAUSE,
 
     }
 

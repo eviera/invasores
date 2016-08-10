@@ -14,6 +14,7 @@ import org.newdawn.slick.openal.SoundStore
 import org.newdawn.slick.particles.ParticleIO
 import org.newdawn.slick.state.BasicGameState
 import org.newdawn.slick.state.StateBasedGame
+import org.newdawn.slick.state.transition.FadeInTransition
 import org.newdawn.slick.tiled.TiledMap
 import org.newdawn.slick.util.ResourceLoader
 import java.awt.Font
@@ -158,7 +159,7 @@ class GameState : BasicGameState() {
     }
 
     override fun update(gc: GameContainer?, game: StateBasedGame?, delta: Int) {
-        if (gc == null ) throw RuntimeException("Error de gc null")
+        if (gc == null || game == null) throw RuntimeException("Error de update")
         val input = gc.input
 
         //TODO REMOVER!! Este es un hack para poder freezar la pantalla y ver que pasa
@@ -169,6 +170,11 @@ class GameState : BasicGameState() {
         var correctedDelta = delta
         if (correctedDelta > 20) {
             correctedDelta = 20
+        }
+
+        if (input.isKeyPressed(Input.KEY_P)) {
+            gc.getInput().clearKeyPressedRecord();
+            game.enterState(Const.STATES.PAUSE.ordinal, null, FadeInTransition(Color.black))
         }
 
         if (input.isKeyPressed(Input.KEY_Q)) {
