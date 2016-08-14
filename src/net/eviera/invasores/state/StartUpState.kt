@@ -29,6 +29,7 @@ class StartUpState : BasicGameState() {
         val input = gc.input
 
         if (input.isKeyPressed(Input.KEY_SPACE)) {
+            gc.input.clearKeyPressedRecord();
             game.enterState(Const.STATES.GAME.ordinal, null, FadeInTransition(Color.black))
         }
 

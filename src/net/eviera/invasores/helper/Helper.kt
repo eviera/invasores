@@ -5,6 +5,10 @@ import net.eviera.invasores.helper.Const.ALIEN_GAP_Y
 import net.eviera.invasores.helper.Const.ALIEN_START_X
 import net.eviera.invasores.helper.Const.ALIEN_START_Y
 import net.eviera.invasores.helper.Const.SP_SIZE
+import org.lwjgl.opengl.GL11
+import org.newdawn.slick.GameContainer
+import org.newdawn.slick.Image
+import org.newdawn.slick.opengl.renderer.SGL
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.util.*
@@ -20,6 +24,19 @@ object Helper {
 
     fun convertPixelCoordToTileCoord(pixelCoord: Float) = BigDecimal((pixelCoord / SP_SIZE).toDouble()).setScale(1, RoundingMode.DOWN).toInt()
 
+    fun grayImage(gc: GameContainer): Image {
+        val background = Image(Const.GAME_WIDTH, Const.GAME_HEIGHT)
+        gc.graphics.copyArea(background, 0, 0)
+        GL11.glPixelTransferf(GL11.GL_RED_SCALE, 0.30f);
+        GL11.glPixelTransferf(GL11.GL_GREEN_SCALE, 0.59f);
+        GL11.glPixelTransferf(GL11.GL_BLUE_SCALE, 0.11f);
+        background.bind();
+        GL11.glCopyTexImage2D(SGL.GL_TEXTURE_2D, 0, GL11.GL_LUMINANCE8, 0, gc.height - background.height, background.texture.textureWidth,
+                background.texture.textureHeight, 0);
+        background.ensureInverted();
+
+        return background
+    }
 
     var PAUSE_DEV_MODE_ONLY = false
     fun DO_PAUSE_DEV_MODE_ONLY() {

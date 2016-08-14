@@ -172,8 +172,10 @@ class GameState : BasicGameState() {
             correctedDelta = 20
         }
 
-        if (input.isKeyPressed(Input.KEY_P)) {
-            gc.getInput().clearKeyPressedRecord();
+        if (input.isKeyPressed(Input.KEY_ESCAPE)) {
+            PauseState.img = Helper.grayImage(gc)
+
+            gc.input.clearKeyPressedRecord();
             game.enterState(Const.STATES.PAUSE.ordinal, null, FadeInTransition(Color.black))
         }
 
@@ -198,13 +200,8 @@ class GameState : BasicGameState() {
             flashMessage.show("VOLUME $volume")
         }
 
-        if (input.isKeyPressed(Input.KEY_ESCAPE)) {
-            gc.exit()
-        }
-
         //Actualizo el jugador
         player.update(gc, correctedDelta)
-
 
         //Calculo la velocidad y direccion de los aliens
         var alienXDisplacement = 0f;
