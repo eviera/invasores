@@ -9,7 +9,7 @@
 
 ##Prio.2
 - Nave nodriza
-- Cambiar los aliens 2 y 3 por otros dibujos
+- ~~Cambiar los aliens 2 y 3 por otros dibujos~~
 - ~~Pantalla intro~~
 - Pantalla Game Over
 - HighScore
