@@ -27,6 +27,7 @@
 - Persistir configuracion (volumen, highscore, etc)
 - Scores distintos para cada tipo de alien
 - Quitar magic numbers
+- Pantalla de pausa
 
 #Bugs
 - ~~Debajo de los aliens al principio aparecen unas lineas (es un bug cuando un tile esta todo lleno, como los bricks)~~

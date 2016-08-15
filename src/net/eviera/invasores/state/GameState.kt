@@ -83,7 +83,7 @@ class GameState : BasicGameState() {
     override fun init(gc: GameContainer?, game: StateBasedGame?) {
         if (gc == null ) throw RuntimeException("Error de gc null")
 
-        fontComputer24 = TrueTypeFont(Font.createFont(Font.TRUETYPE_FONT, ResourceLoader.getResourceAsStream("/resources/fonts/Computerfont.ttf")).deriveFont(Const.FONT_SIZE), false)
+        fontComputer24 = TrueTypeFont(Font.createFont(Font.TRUETYPE_FONT, ResourceLoader.getResourceAsStream("/resources/fonts/Computerfont.ttf")).deriveFont(Const.FONT_SIZE_24), false)
 
         //Volumen al medio
         SoundStore.get().soundVolume = 0.5f
@@ -176,10 +176,10 @@ class GameState : BasicGameState() {
             PauseState.img = Helper.grayImage(gc)
 
             gc.input.clearKeyPressedRecord();
-            game.enterState(Const.STATES.PAUSE.ordinal, null, FadeInTransition(Color.black))
+            game.enterState(Const.STATES.PAUSE.ordinal, null, FadeInTransition(Color.black, Const.PAUSE_TRANSITION_SPEED))
         }
 
-        if (input.isKeyPressed(Input.KEY_Q)) {
+        if (input.isKeyPressed(Input.KEY_EQUALS) || input.isKeyPressed(Input.KEY_ADD) || input.isKeyPressed(Input.KEY_RBRACKET)) {
             if (SoundStore.get().soundVolume < 1f) {
                 SoundStore.get().soundVolume += 0.1f
                 if (SoundStore.get().soundVolume > 1f) {
@@ -189,7 +189,7 @@ class GameState : BasicGameState() {
             val volume = Math.round(SoundStore.get().soundVolume * 100)
             flashMessage.show("VOLUME $volume")
         }
-        if (input.isKeyPressed(Input.KEY_A)) {
+        if (input.isKeyPressed(Input.KEY_MINUS) || input.isKeyPressed(Input.KEY_SUBTRACT) || input.isKeyPressed(Input.KEY_SLASH)) {
             if (SoundStore.get().soundVolume > 0f) {
                 SoundStore.get().soundVolume -= 0.1f
                 if (SoundStore.get().soundVolume < 0f) {
@@ -296,9 +296,9 @@ class GameState : BasicGameState() {
         g.color = Color.white
 
         g.drawLine(0f, Const.GAME_FLOOR, Const.GAME_WIDTH * 1f, Const.GAME_FLOOR)
-        fontComputer24.drawString(Const.FONT_SIZE / 2, Const.GAME_FLOOR + 2, "POINTS: ${score}")
+        fontComputer24.drawString(Const.FONT_SIZE_24 / 2, Const.GAME_FLOOR + 2, "POINTS: ${score}")
         for (liveCount in 0..lives - 1) {
-            g.drawImage(playerScoreSprite, Const.GAME_WIDTH - (liveCount * Const.SP_SIZE) - Const.SP_SIZE -  Const.FONT_SIZE / 3, Const.GAME_FLOOR - 6)
+            g.drawImage(playerScoreSprite, Const.GAME_WIDTH - (liveCount * Const.SP_SIZE) - Const.SP_SIZE -  Const.FONT_SIZE_24 / 3, Const.GAME_FLOOR - 6)
         }
 
 

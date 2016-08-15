@@ -6,8 +6,10 @@ import net.eviera.invasores.helper.Const.ALIEN_START_X
 import net.eviera.invasores.helper.Const.ALIEN_START_Y
 import net.eviera.invasores.helper.Const.SP_SIZE
 import org.lwjgl.opengl.GL11
+import org.newdawn.slick.Color
 import org.newdawn.slick.GameContainer
 import org.newdawn.slick.Image
+import org.newdawn.slick.TrueTypeFont
 import org.newdawn.slick.opengl.renderer.SGL
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -31,11 +33,20 @@ object Helper {
         GL11.glPixelTransferf(GL11.GL_GREEN_SCALE, 0.59f);
         GL11.glPixelTransferf(GL11.GL_BLUE_SCALE, 0.11f);
         background.bind();
-        GL11.glCopyTexImage2D(SGL.GL_TEXTURE_2D, 0, GL11.GL_LUMINANCE8, 0, gc.height - background.height, background.texture.textureWidth,
+        GL11.glCopyTexImage2D(SGL.GL_TEXTURE_2D, 0, GL11.GL_LUMINANCE16, 0, gc.height - background.height, background.texture.textureWidth,
                 background.texture.textureHeight, 0);
         background.ensureInverted();
 
         return background
+    }
+
+    fun TrueTypeFont.drawStringCentered(y: Float, width: Int, whatChars: String) {
+        drawStringCentered(y, width, whatChars, Color.white)
+    }
+
+    fun TrueTypeFont.drawStringCentered(y: Float, width: Int, whatChars: String, color: Color) {
+        val centerX = width / 2f - getWidth(whatChars) / 2
+        drawString(centerX, y, whatChars, color)
     }
 
     var PAUSE_DEV_MODE_ONLY = false

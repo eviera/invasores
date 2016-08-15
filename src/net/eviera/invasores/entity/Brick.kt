@@ -42,8 +42,10 @@ class Brick (val tileX: Int, val tileY: Int) : CollisionableRectangle(Helper.con
             playBreakRnd()
             if (status == 0) {
                 remove()
-            } else {
+            } else if (status > 0) {
                 EventManager.publish(BrickEvent(Helper.convertPixelCoordToTileCoord(x), Helper.convertPixelCoordToTileCoord(y), statusValues[status].tileId))
+            } else {
+                //no hago nada. Puede que al mismo tiempo lo haya destruido un rayo de los aliens y del jugador
             }
         }
 

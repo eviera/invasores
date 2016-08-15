@@ -55,7 +55,8 @@ object Const {
     }
 
     val SP_SIZE = 32f
-    val FONT_SIZE = 24f
+    val FONT_SIZE_24 = 24f
+    val FONT_SIZE_32 = 32f
     val GAME_TILES_LAYER = 0
     val GAME_TILES_WIDTH = 36
     val GAME_TILES_HEIGHT = 18
@@ -88,4 +89,5 @@ object Const {
     val SCORE_ALIEN_HIT = 100
 
     val FLASH_TIMEOUT = 1 * 1000 //En segundos, cuanto se queda el mensaje flash activo
+    val PAUSE_TRANSITION_SPEED = 200 //En ms lo que tarda en transicionar desde/hacia la pantalla de pausa
 }

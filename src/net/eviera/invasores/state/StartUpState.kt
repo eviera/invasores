@@ -17,7 +17,7 @@ class StartUpState : BasicGameState() {
     override fun init(gc: GameContainer?, game: StateBasedGame?) {
         backimg = Image("/resources/images/startup_background.png")
 
-        fontComputer24 = TrueTypeFont(Font.createFont(Font.TRUETYPE_FONT, ResourceLoader.getResourceAsStream("/resources/fonts/Computerfont.ttf")).deriveFont(Const.FONT_SIZE), false)
+        fontComputer24 = TrueTypeFont(Font.createFont(Font.TRUETYPE_FONT, ResourceLoader.getResourceAsStream("/resources/fonts/Computerfont.ttf")).deriveFont(Const.FONT_SIZE_24), false)
 
         //Inicializo el score
         HighScoreManager.init()
@@ -45,8 +45,8 @@ class StartUpState : BasicGameState() {
         g.color = Color.white
         var i = 0
         for (score in HighScoreManager.scores) {
-            fontComputer24.drawString(Const.GAME_WIDTH / 2f - 100f, Const.GAME_HEIGHT / 2f + Const.FONT_SIZE * (2 + i), score.name)
-            fontComputer24.drawString(Const.GAME_WIDTH / 2f + 80f, Const.GAME_HEIGHT / 2f + Const.FONT_SIZE * (2 + i), score.score.toString())
+            fontComputer24.drawString(Const.GAME_WIDTH / 2f - 100f, Const.GAME_HEIGHT / 2f + Const.FONT_SIZE_24 * (2 + i), score.name)
+            fontComputer24.drawString(Const.GAME_WIDTH / 2f + 80f, Const.GAME_HEIGHT / 2f + Const.FONT_SIZE_24 * (2 + i), score.score.toString())
             i++
         }
     }
