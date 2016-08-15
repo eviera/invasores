@@ -84,9 +84,11 @@ object Const {
     val ALIEN_SHOOT_SPEED = 0.4f
     val ALIEN_EXPLODING_TIME = 150 //en millis
 
-    val BRICK_QUANTITY = 20
-
-    val SCORE_ALIEN_HIT = 100
+    enum class SCORE_ALIEN(val score: Int) {
+        ROW_HIGH(200),
+        ROW_MIDDLE(125),
+        ROW_LOW(100),
+    }
 
     val FLASH_TIMEOUT = 1 * 1000 //En segundos, cuanto se queda el mensaje flash activo
     val PAUSE_TRANSITION_SPEED = 200 //En ms lo que tarda en transicionar desde/hacia la pantalla de pausa

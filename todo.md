@@ -25,9 +25,9 @@
 - ~~Control de volumen~~
   - ~~Visualizar el volumen cuando cambia (en porcentaje)~~
 - Persistir configuracion (volumen, highscore, etc)
-- Scores distintos para cada tipo de alien
+- ~~Scores distintos para cada tipo de alien~~
 - Quitar magic numbers
-- Pantalla de pausa
+- ~~Pantalla de pausa~~
 
 #Bugs
 - ~~Debajo de los aliens al principio aparecen unas lineas (es un bug cuando un tile esta todo lleno, como los bricks)~~
