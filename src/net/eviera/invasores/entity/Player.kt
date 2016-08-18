@@ -28,7 +28,7 @@ class Player : CollisionableRectangle(Const.PLAYER_START_X, Const.PLAYER_START_Y
         this.shootSprite = shootSprite
         this.playerExplosionSystem = playerExplosionSystem
         this.playerExplosionEmitter = playerExplosionSystem.getEmitter(0) as ConfigurableEmitter
-        CollisionManager.addPlayer(this)
+        CollisionManager.add(CollisionManager.COLLISION_CLASS.PLAYER, this)
     }
 
     fun update(gc: GameContainer, delta: Int) {

@@ -23,11 +23,11 @@ class Brick (val tileX: Int, val tileY: Int) : CollisionableRectangle(Helper.con
     val statusValues = STATUS.values()
 
     fun init() {
-        CollisionManager.addBrick(this)
+        CollisionManager.add(CollisionManager.COLLISION_CLASS.BRICK, this)
     }
 
     fun remove() {
-        CollisionManager.removeBrick(this)
+        CollisionManager.remove(CollisionManager.COLLISION_CLASS.BRICK, this)
         alive = false
         EventManager.publish(BrickEvent(Helper.convertPixelCoordToTileCoord(x), Helper.convertPixelCoordToTileCoord(y), Const.GAME_TILES_ID.NULL.ordinal))
     }

@@ -1,30 +1,30 @@
 package net.eviera.invasores.entity
 
-import net.eviera.invasores.event.AlienEvent
-import net.eviera.invasores.event.ScoreEvent
 import net.eviera.invasores.helper.Const
 import net.eviera.invasores.manager.CollisionManager
-import net.eviera.invasores.manager.EventManager
-import org.newdawn.slick.*
+import org.newdawn.slick.Animation
+import org.newdawn.slick.Image
+import org.newdawn.slick.Sound
 
-class Alien (x: Float, y: Float, val score: Int) : CollisionableRectangle(x, y, Const.SP_SIZE, Const.SP_SIZE){
+class Nodriza (x: Float, y: Float) : CollisionableRectangle(x, y, Const.SP_SIZE * 2, Const.SP_SIZE) {
 
     lateinit var sprite: Animation
     lateinit var shootSprite: Image
-    lateinit var alienExplosion: Animation
+    lateinit var explosion: Animation
     lateinit var shoot: Shoot
     var alive = true
     var isExploding = false
     var isShooting = false
-    var alienExplosionRemainingTime = Const.ALIEN_EXPLODING_TIME
+    var explosionRemainingTime = Const.ALIEN_EXPLODING_TIME
 
-    fun init(sprite: Animation, shootSprite: Image, alienExplosion: Animation) {
+    fun init(sprite: Animation, shootSprite: Image, explosion: Animation) {
         this.sprite = sprite
         this.shootSprite = shootSprite
-        this.alienExplosion = alienExplosion
-        CollisionManager.add(CollisionManager.COLLISION_CLASS.ALIEN, this)
+        this.explosion = explosion
+        CollisionManager.add(CollisionManager.COLLISION_CLASS.NODRIZA, this)
     }
 
+    /*
     fun update(gc: GameContainer, delta: Int, alienXDisplacement: Float, alienYDisplacement: Float, hasToShoot: Boolean) {
 
         if (alive || isExploding) {
@@ -70,7 +70,7 @@ class Alien (x: Float, y: Float, val score: Int) : CollisionableRectangle(x, y, 
     }
 
     fun remove() {
-        CollisionManager.remove(CollisionManager.COLLISION_CLASS.ALIEN, this)
+        CollisionManager.removeAlien(this)
         alive = false
         isExploding = true
     }
@@ -84,17 +84,9 @@ class Alien (x: Float, y: Float, val score: Int) : CollisionableRectangle(x, y, 
         }
     }
 
+    */
 
     override fun collisionWith(collisioned: CollisionableRectangle) {
-        if (collisioned is Brick) {
-            //No hace nada
-        } else {
-            playExplosion()
-            EventManager.publish(ScoreEvent(score))
-            EventManager.publish(AlienEvent(false))
-            alienExplosion.restart()
-            remove()
-        }
     }
 
     companion object Sounds {
@@ -111,5 +103,4 @@ class Alien (x: Float, y: Float, val score: Int) : CollisionableRectangle(x, y, 
             shootSound.play()
         }
     }
-
 }

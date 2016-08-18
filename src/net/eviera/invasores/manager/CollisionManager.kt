@@ -4,39 +4,34 @@ import net.eviera.invasores.entity.CollisionableRectangle
 
 object CollisionManager {
 
-    val alienCollisionables = mutableListOf<CollisionableRectangle>()
-    val playerCollisionables = mutableListOf<CollisionableRectangle>()
-    val shootToAlienCollisionables = mutableListOf<CollisionableRectangle>()
-    val shootToPlayerCollisionables = mutableListOf<CollisionableRectangle>()
-    val brickCollisionables = mutableListOf<CollisionableRectangle>()
+    enum class COLLISION_CLASS {
+        ALIEN, PLAYER, BRICK, NODRIZA, SHOOT_TO_ALIEN, SHOOT_TO_PLAYER
+    }
 
-    fun addAlien(colissionable: CollisionableRectangle) = alienCollisionables.add(colissionable)
-    fun removeAlien(colissionable: CollisionableRectangle) = alienCollisionables.remove(colissionable)
+    val collisionables = mapOf(
+            COLLISION_CLASS.ALIEN to mutableListOf<CollisionableRectangle>(),
+            COLLISION_CLASS.PLAYER to mutableListOf<CollisionableRectangle>(),
+            COLLISION_CLASS.BRICK to mutableListOf<CollisionableRectangle>(),
+            COLLISION_CLASS.NODRIZA to mutableListOf<CollisionableRectangle>(),
+            COLLISION_CLASS.SHOOT_TO_ALIEN to mutableListOf<CollisionableRectangle>(),
+            COLLISION_CLASS.SHOOT_TO_PLAYER to mutableListOf<CollisionableRectangle>()
+            )
 
-    fun addPlayer(colissionable: CollisionableRectangle) = playerCollisionables.add(colissionable)
-    fun removePlayer(colissionable: CollisionableRectangle) = playerCollisionables.remove(colissionable)
-
-    fun addShootToAlien(colissionable: CollisionableRectangle) = shootToAlienCollisionables.add(colissionable)
-    fun removeShootToAlien(colissionable: CollisionableRectangle) = shootToAlienCollisionables.remove(colissionable)
-
-    fun addShootToPlayer(colissionable: CollisionableRectangle) = shootToPlayerCollisionables.add(colissionable)
-    fun removeShootToPlayer(colissionable: CollisionableRectangle) = shootToPlayerCollisionables.remove(colissionable)
-
-    fun addBrick(colissionable: CollisionableRectangle) = brickCollisionables.add(colissionable)
-    fun removeBrick(colissionable: CollisionableRectangle) = brickCollisionables.remove(colissionable)
+    fun add(collisionClass: COLLISION_CLASS, collisionable: CollisionableRectangle) = collisionables[collisionClass]?.add(collisionable)
+    fun remove(collisionClass: COLLISION_CLASS, collisionable: CollisionableRectangle) = collisionables[collisionClass]?.remove(collisionable)
 
     fun checkCollision() {
         val pairCollisions = mutableListOf<Pair<CollisionableRectangle, CollisionableRectangle>>()
 
         //Tiros desde player a alien (y choques en ladrillos)
-        if (shootToAlienCollisionables.isNotEmpty()) {
-            for(shoot in shootToAlienCollisionables) {
-                for (alien in alienCollisionables) {
+        if (collisionables[COLLISION_CLASS.SHOOT_TO_ALIEN]!!.isNotEmpty()) {
+            for(shoot in collisionables[COLLISION_CLASS.SHOOT_TO_ALIEN]!!) {
+                for (alien in collisionables[COLLISION_CLASS.ALIEN]!!) {
                     if (shoot.intersects(alien)) {
                         pairCollisions.add(Pair(shoot, alien))
                     }
                 }
-                for (brick in brickCollisionables) {
+                for (brick in collisionables[COLLISION_CLASS.BRICK]!!) {
                     if (shoot.intersects(brick)) {
                         pairCollisions.add(Pair(shoot, brick))
                     }
@@ -46,14 +41,14 @@ object CollisionManager {
         }
 
         //Tiros desde alien a player (y choques en ladrillos)
-        if (shootToPlayerCollisionables.isNotEmpty()) {
-            for(shoot in shootToPlayerCollisionables) {
-                for (player in playerCollisionables) {
+        if (collisionables[COLLISION_CLASS.SHOOT_TO_PLAYER]!!.isNotEmpty()) {
+            for(shoot in collisionables[COLLISION_CLASS.SHOOT_TO_PLAYER]!!) {
+                for (player in collisionables[COLLISION_CLASS.PLAYER]!!) {
                     if (shoot.intersects(player)) {
                         pairCollisions.add(Pair(shoot, player))
                     }
                 }
-                for (brick in brickCollisionables) {
+                for (brick in collisionables[COLLISION_CLASS.BRICK]!!) {
                     if (shoot.intersects(brick)) {
                         pairCollisions.add(Pair(shoot, brick))
                     }
@@ -62,9 +57,9 @@ object CollisionManager {
         }
 
         //Choque de aliens contra los ladrillos
-        if (alienCollisionables.isNotEmpty()) {
-            for(alien in alienCollisionables) {
-                for (brick in brickCollisionables) {
+        if (collisionables[COLLISION_CLASS.ALIEN]!!.isNotEmpty()) {
+            for(alien in collisionables[COLLISION_CLASS.ALIEN]!!) {
+                for (brick in collisionables[COLLISION_CLASS.BRICK]!!) {
                     if (alien.intersects(brick)) {
                         pairCollisions.add(Pair(alien, brick))
                     }
@@ -81,5 +76,6 @@ object CollisionManager {
         }
 
     }
+
 
 }

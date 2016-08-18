@@ -1,7 +1,6 @@
 package net.eviera.invasores.entity
 
 import net.eviera.invasores.helper.Const
-import net.eviera.invasores.helper.Helper
 import net.eviera.invasores.manager.CollisionManager
 import org.newdawn.slick.GameContainer
 import org.newdawn.slick.Graphics
@@ -20,8 +19,8 @@ class Shoot (x: Float, y: Float, val sprite: Image) : CollisionableRectangle(x, 
     fun init(to: To) {
         this.to = to
         when(to) {
-            To.SHOOT_TO_ALIEN -> CollisionManager.addShootToAlien(this)
-            To.SHOOT_TO_PLAYER -> CollisionManager.addShootToPlayer(this)
+            To.SHOOT_TO_ALIEN -> CollisionManager.add(CollisionManager.COLLISION_CLASS.SHOOT_TO_ALIEN, this)
+            To.SHOOT_TO_PLAYER -> CollisionManager.add(CollisionManager.COLLISION_CLASS.SHOOT_TO_PLAYER, this)
         }
     }
 
@@ -57,8 +56,8 @@ class Shoot (x: Float, y: Float, val sprite: Image) : CollisionableRectangle(x, 
     fun remove() {
         alive = false
         when(to) {
-            To.SHOOT_TO_ALIEN -> CollisionManager.removeShootToAlien(this)
-            To.SHOOT_TO_PLAYER -> CollisionManager.removeShootToPlayer(this)
+            To.SHOOT_TO_ALIEN -> CollisionManager.remove(CollisionManager.COLLISION_CLASS.SHOOT_TO_ALIEN, this)
+            To.SHOOT_TO_PLAYER -> CollisionManager.remove(CollisionManager.COLLISION_CLASS.PLAYER, this)
         }
     }
 

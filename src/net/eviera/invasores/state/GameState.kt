@@ -26,6 +26,7 @@ class GameState : BasicGameState() {
     //Entidades
     val player = Player()
     val aliens = arrayOfNulls<Alien>(Const.ALIEN_COLS * Const.ALIEN_ROWS)
+    lateinit var nodriza: Alien
     lateinit var fontComputer24: TrueTypeFont
     lateinit var tiledMap: TiledMap
     lateinit var playerScoreSprite: Image
@@ -121,6 +122,9 @@ class GameState : BasicGameState() {
                 aliens[f * Const.ALIEN_COLS + c] = alien
             }
         }
+
+        //Cargo la nave nodriza
+        //nodriza = Alien()
 
         //Inicializo el flash
         flashMessage.init(fontComputer24)
