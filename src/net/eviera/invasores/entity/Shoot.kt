@@ -57,7 +57,7 @@ class Shoot (x: Float, y: Float, val sprite: Image) : CollisionableRectangle(x, 
         alive = false
         when(to) {
             To.SHOOT_TO_ALIEN -> CollisionManager.remove(CollisionManager.COLLISION_CLASS.SHOOT_TO_ALIEN, this)
-            To.SHOOT_TO_PLAYER -> CollisionManager.remove(CollisionManager.COLLISION_CLASS.PLAYER, this)
+            To.SHOOT_TO_PLAYER -> CollisionManager.remove(CollisionManager.COLLISION_CLASS.SHOOT_TO_PLAYER, this)
         }
     }
 
