@@ -8,7 +8,7 @@ import net.eviera.invasores.manager.EventManager
 import org.newdawn.slick.Sound
 import java.util.*
 
-class Brick (val tileX: Int, val tileY: Int) : CollisionableRectangle(Helper.convertTileCoordToPixelCoord(tileX), Helper.convertTileCoordToPixelCoord(tileY), Const.SP_SIZE, Const.SP_SIZE) {
+class Brick (tileX: Int, tileY: Int) : CollisionableRectangle(Helper.convertTileCoordToPixelCoord(tileX), Helper.convertTileCoordToPixelCoord(tileY), Const.SP_SIZE, Const.SP_SIZE) {
 
     enum class STATUS constructor(val tileId: Int) {
         VACIO(Const.GAME_TILES_ID.NULL.ordinal),            //0
@@ -23,11 +23,11 @@ class Brick (val tileX: Int, val tileY: Int) : CollisionableRectangle(Helper.con
     val statusValues = STATUS.values()
 
     fun init() {
-        CollisionManager.add(CollisionManager.COLLISION_CLASS.BRICK, this)
+        CollisionManager.add(this)
     }
 
     fun remove() {
-        CollisionManager.remove(CollisionManager.COLLISION_CLASS.BRICK, this)
+        CollisionManager.remove(this)
         alive = false
         EventManager.publish(BrickEvent(Helper.convertPixelCoordToTileCoord(x), Helper.convertPixelCoordToTileCoord(y), Const.GAME_TILES_ID.NULL.ordinal))
     }
@@ -49,6 +49,10 @@ class Brick (val tileX: Int, val tileY: Int) : CollisionableRectangle(Helper.con
             }
         }
 
+    }
+
+    override fun getType(): COLLISION_CLASS {
+        return COLLISION_CLASS.BRICK
     }
 
     companion object Sounds {

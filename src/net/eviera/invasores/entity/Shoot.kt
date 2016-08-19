@@ -18,10 +18,7 @@ class Shoot (x: Float, y: Float, val sprite: Image) : CollisionableRectangle(x, 
 
     fun init(to: To) {
         this.to = to
-        when(to) {
-            To.SHOOT_TO_ALIEN -> CollisionManager.add(CollisionManager.COLLISION_CLASS.SHOOT_TO_ALIEN, this)
-            To.SHOOT_TO_PLAYER -> CollisionManager.add(CollisionManager.COLLISION_CLASS.SHOOT_TO_PLAYER, this)
-        }
+        CollisionManager.add(this)
     }
 
     fun update(gc: GameContainer, delta: Int) {
@@ -55,14 +52,18 @@ class Shoot (x: Float, y: Float, val sprite: Image) : CollisionableRectangle(x, 
 
     fun remove() {
         alive = false
-        when(to) {
-            To.SHOOT_TO_ALIEN -> CollisionManager.remove(CollisionManager.COLLISION_CLASS.SHOOT_TO_ALIEN, this)
-            To.SHOOT_TO_PLAYER -> CollisionManager.remove(CollisionManager.COLLISION_CLASS.SHOOT_TO_PLAYER, this)
-        }
+        CollisionManager.remove(this)
     }
 
     override fun collisionWith(collisioned: CollisionableRectangle) {
         remove()
+    }
+
+    override fun getType(): COLLISION_CLASS {
+        when(to) {
+            To.SHOOT_TO_ALIEN -> return COLLISION_CLASS.SHOOT_TO_ALIEN
+            To.SHOOT_TO_PLAYER -> return COLLISION_CLASS.SHOOT_TO_PLAYER
+        }
     }
 
 }

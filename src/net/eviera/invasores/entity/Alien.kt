@@ -22,7 +22,7 @@ class Alien (x: Float, y: Float, val score: Int) : CollisionableRectangle(x, y, 
         this.sprite = sprite
         this.shootSprite = shootSprite
         this.alienExplosion = alienExplosion
-        CollisionManager.add(CollisionManager.COLLISION_CLASS.ALIEN, this)
+        CollisionManager.add(this)
     }
 
     fun update(gc: GameContainer, delta: Int, alienXDisplacement: Float, alienYDisplacement: Float, hasToShoot: Boolean) {
@@ -70,7 +70,7 @@ class Alien (x: Float, y: Float, val score: Int) : CollisionableRectangle(x, y, 
     }
 
     fun remove() {
-        CollisionManager.remove(CollisionManager.COLLISION_CLASS.ALIEN, this)
+        CollisionManager.remove(this)
         alive = false
         isExploding = true
     }
@@ -95,6 +95,10 @@ class Alien (x: Float, y: Float, val score: Int) : CollisionableRectangle(x, y, 
             alienExplosion.restart()
             remove()
         }
+    }
+
+    override fun getType(): COLLISION_CLASS {
+        return COLLISION_CLASS.ALIEN
     }
 
     companion object Sounds {

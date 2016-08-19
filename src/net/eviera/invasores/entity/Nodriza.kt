@@ -21,7 +21,7 @@ class Nodriza (x: Float, y: Float) : CollisionableRectangle(x, y, Const.SP_SIZE 
         this.sprite = sprite
         this.shootSprite = shootSprite
         this.explosion = explosion
-        CollisionManager.add(CollisionManager.COLLISION_CLASS.NODRIZA, this)
+        CollisionManager.add(this)
     }
 
     /*
@@ -87,6 +87,10 @@ class Nodriza (x: Float, y: Float) : CollisionableRectangle(x, y, Const.SP_SIZE 
     */
 
     override fun collisionWith(collisioned: CollisionableRectangle) {
+    }
+
+    override fun getType(): COLLISION_CLASS {
+        return COLLISION_CLASS.NODRIZA
     }
 
     companion object Sounds {

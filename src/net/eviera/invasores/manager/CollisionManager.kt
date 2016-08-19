@@ -1,12 +1,10 @@
 package net.eviera.invasores.manager
 
 import net.eviera.invasores.entity.CollisionableRectangle
+import net.eviera.invasores.entity.CollisionableRectangle.COLLISION_CLASS
 
 object CollisionManager {
 
-    enum class COLLISION_CLASS {
-        ALIEN, PLAYER, BRICK, NODRIZA, SHOOT_TO_ALIEN, SHOOT_TO_PLAYER
-    }
 
     val collisionables = mapOf(
             COLLISION_CLASS.ALIEN to mutableListOf<CollisionableRectangle>(),
@@ -17,8 +15,8 @@ object CollisionManager {
             COLLISION_CLASS.SHOOT_TO_PLAYER to mutableListOf<CollisionableRectangle>()
             )
 
-    fun add(collisionClass: COLLISION_CLASS, collisionable: CollisionableRectangle) = collisionables[collisionClass]?.add(collisionable)
-    fun remove(collisionClass: COLLISION_CLASS, collisionable: CollisionableRectangle) = collisionables[collisionClass]?.remove(collisionable)
+    fun add(collisionable: CollisionableRectangle) = collisionables[collisionable.getType()]?.add(collisionable)
+    fun remove(collisionable: CollisionableRectangle) = collisionables[collisionable.getType()]?.remove(collisionable)
 
     fun checkCollision() {
         val pairCollisions = mutableListOf<Pair<CollisionableRectangle, CollisionableRectangle>>()
