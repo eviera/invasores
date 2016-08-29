@@ -64,6 +64,10 @@ class Player : CollisionableRectangle(Const.PLAYER_START_X, Const.PLAYER_START_Y
             playerExplosionRemainingTime -= delta
             if (playerExplosionRemainingTime <= 0) {
                 isExploding = false
+
+                //Publico el evento de la muerte del player cuando termina de hacer la explosion
+                EventManager.publish(PlayerEvent(false))
+
                 reset()
             }
             playerExplosionSystem.update(delta)
@@ -103,7 +107,6 @@ class Player : CollisionableRectangle(Const.PLAYER_START_X, Const.PLAYER_START_Y
 
     override fun collisionWith(collisioned: CollisionableRectangle) {
         playExplosion()
-        EventManager.publish(PlayerEvent(false))
         playerExplosionSystem.reset()
         playerExplosionEmitter.setPosition(x + (Const.SP_SIZE / 2), y + (Const.SP_SIZE / 2))
         playerExplosionRemainingTime = playerExplosionEmitter.initialLife.max

@@ -67,8 +67,6 @@ class PauseState : BasicGameState() {
         fontComputer32.drawStringCentered(Const.GAME_HEIGHT * 0.125f + 150f, Const.GAME_WIDTH, "- P A U S E D -", if (blinkVisible) Color.white else Color.black)
         fontComputer24.drawStringCentered(Const.GAME_HEIGHT * 0.125f + 250f, Const.GAME_WIDTH, "press Q to exit")
 
-        g.color = Color.white
-        g.drawString("caca", 100f, 100f);
     }
 
 

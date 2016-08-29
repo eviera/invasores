@@ -76,10 +76,8 @@ class GameState : BasicGameState() {
     var aliensShootDeltaCounter = 0
 
     var score = 0
-
     var lives = 3
-
-
+    var gameOver = false
 
     override fun init(gc: GameContainer?, game: StateBasedGame?) {
         if (gc == null ) throw RuntimeException("Error de gc null")
@@ -160,6 +158,19 @@ class GameState : BasicGameState() {
                 }
             }
         })
+
+        EventManager.addPlayerListener(object : Listener{
+            override fun fired(e: Event) {
+                val playerEvent = (e as PlayerEvent)
+                if (!playerEvent.playerAlive) {
+                    lives--
+                    if (lives == 0) {
+                        gameOver = true
+                    }
+                }
+            }
+
+        })
     }
 
     override fun update(gc: GameContainer?, game: StateBasedGame?, delta: Int) {
@@ -174,6 +185,11 @@ class GameState : BasicGameState() {
         var correctedDelta = delta
         if (correctedDelta > 20) {
             correctedDelta = 20
+        }
+
+        if (gameOver) {
+            gc.input.clearKeyPressedRecord();
+            game.enterState(Const.STATES.GAMEOVER.ordinal, null, FadeInTransition(Color.black, Const.PAUSE_TRANSITION_SPEED))
         }
 
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
@@ -283,7 +299,7 @@ class GameState : BasicGameState() {
         //Chequeo las colisiones
         CollisionManager.checkCollision()
 
-        //Dispatcheo los eventos
+        //Despacho los eventos
         EventManager.dispatchEvents()
 
     }
@@ -292,6 +308,9 @@ class GameState : BasicGameState() {
         if (gc == null || g == null) throw RuntimeException("Error de inicializacion")
 
         //Rendereo elementos de pantalla
+        if (gameOver) {
+            return
+        }
 
         //Mapa
         tiledMap.render(0, 0)
@@ -307,6 +326,7 @@ class GameState : BasicGameState() {
 
 
         player.render(gc, g)
+
         for (alien in aliens) {
             alien?.render(gc, g)
         }

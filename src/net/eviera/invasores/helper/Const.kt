@@ -6,6 +6,7 @@ object Const {
         STARTUP,
         GAME,
         PAUSE,
+        GAMEOVER,
 
     }
 

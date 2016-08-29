@@ -1,4 +1,5 @@
 import net.eviera.invasores.helper.Const
+import net.eviera.invasores.state.GameOverState
 import net.eviera.invasores.state.GameState
 import net.eviera.invasores.state.PauseState
 import net.eviera.invasores.state.StartUpState
@@ -12,6 +13,7 @@ class Invasores : StateBasedGame("Invasores") {
         addState(StartUpState())
         addState(GameState())
         addState(PauseState())
+        addState(GameOverState())
     }
 
 }

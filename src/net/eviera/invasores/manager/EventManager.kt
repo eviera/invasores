@@ -27,17 +27,19 @@ object EventManager {
     }
 
 
-
+    fun addPlayerListener(listener: Listener) {
+        addListener(Event.Type.PLAYER, listener)
+    }
 
 
 
     private fun addListener(type: Event.Type, listener: Listener) {
-        var scoreListeners = listeners[type]
-        if (scoreListeners == null)  {
-            scoreListeners = LinkedHashSet<Listener>()
+        var listenersByType = listeners[type]
+        if (listenersByType == null)  {
+            listenersByType = LinkedHashSet<Listener>()
         }
-        scoreListeners.add(listener)
-        listeners[type] = scoreListeners
+        listenersByType.add(listener)
+        listeners[type] = listenersByType
 
     }
 
