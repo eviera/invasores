@@ -19,6 +19,8 @@ object Helper {
 
     fun getRandomAnimationInterval() = Random().nextInt(300) + 100
 
+    fun getRandomXInScreen() = Random().nextInt(Const.GAME_WIDTH - Const.SP_SIZE.toInt()) + Const.SP_SIZE.toInt()
+
     fun getAlienColPos(colDisp: Float, c: Int) = ALIEN_START_X * colDisp + c * SP_SIZE * ALIEN_GAP_X
     fun getAlienRowPos(f: Int) = ALIEN_START_Y + SP_SIZE * f * ALIEN_GAP_Y
 

@@ -86,7 +86,7 @@ class Alien (x: Float, y: Float, val score: Int) : CollisionableRectangle(x, y, 
 
 
     override fun collisionWith(collisioned: CollisionableRectangle) {
-        if (collisioned is Brick) {
+        if (collisioned is Brick || collisioned is Player) {
             //No hace nada
         } else {
             playExplosion()

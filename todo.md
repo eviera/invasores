@@ -3,8 +3,10 @@
 - ~~Muerte player~~
 - ~~Alinear correctamente texto del footer~~
 - Muerte cuando los aliens llegan abajo
+  - Armar un evento de GameOver que se dispare cuando un alien alive llega abajo
+    - Este evento GameOver tambien se deberia disparar cuando el player se queda sin vidas (en lugar del boolean gameover)
   - ~~Los aliens tienen que romper los ladrillos~~
-  - Cuando un alien colisiona con el player, el player muere
+  - ~~Cuando un alien colisiona con el player, el player muere~~
 
 
 ##Prio.2
@@ -31,6 +33,7 @@
 
 #Bugs
 - ~~Debajo de los aliens al principio aparecen unas lineas (es un bug cuando un tile esta todo lleno, como los bricks)~~
+- Parece que los aliens no disparan en el borde
 
 #NiceToHave
 - Musica intro

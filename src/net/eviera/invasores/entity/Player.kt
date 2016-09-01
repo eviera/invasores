@@ -5,6 +5,7 @@ import net.eviera.invasores.helper.Const
 import net.eviera.invasores.helper.Const.GAME_WIDTH
 import net.eviera.invasores.helper.Const.PLAYER_SPEED
 import net.eviera.invasores.helper.Const.SP_SIZE
+import net.eviera.invasores.helper.Helper
 import net.eviera.invasores.manager.CollisionManager
 import net.eviera.invasores.manager.EventManager
 import org.newdawn.slick.*
@@ -106,6 +107,8 @@ class Player : CollisionableRectangle(Const.PLAYER_START_X, Const.PLAYER_START_Y
     }
 
     override fun collisionWith(collisioned: CollisionableRectangle) {
+        //Lo quito del manager de colisiones asi no colisiona mientras explota
+        CollisionManager.remove(this)
         playExplosion()
         playerExplosionSystem.reset()
         playerExplosionEmitter.setPosition(x + (Const.SP_SIZE / 2), y + (Const.SP_SIZE / 2))
@@ -119,8 +122,10 @@ class Player : CollisionableRectangle(Const.PLAYER_START_X, Const.PLAYER_START_Y
     }
 
     private fun reset() {
+        //Lo vuelvo a agregar al manager de colisiones
+        CollisionManager.add(this)
         alive = true
-        x = Const.PLAYER_START_X
+        x = Helper.getRandomXInScreen().toFloat()
         y = Const.PLAYER_START_Y
         playerExplosionSystem.reset()
     }

@@ -54,7 +54,7 @@ object CollisionManager {
             }
         }
 
-        //Choque de aliens contra los ladrillos
+        //Choque de aliens contra los ladrillos o el player
         if (collisionables[COLLISION_CLASS.ALIEN]!!.isNotEmpty()) {
             for(alien in collisionables[COLLISION_CLASS.ALIEN]!!) {
                 for (brick in collisionables[COLLISION_CLASS.BRICK]!!) {
@@ -62,6 +62,12 @@ object CollisionManager {
                         pairCollisions.add(Pair(alien, brick))
                     }
                 }
+                for (player in collisionables[COLLISION_CLASS.PLAYER]!!) {
+                    if (alien.intersects(player)) {
+                        pairCollisions.add(Pair(alien, player))
+                    }
+                }
+
             }
         }
 
