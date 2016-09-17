@@ -1,7 +1,7 @@
 package net.eviera.invasores.entity
 
 import net.eviera.invasores.event.AlienEvent
-import net.eviera.invasores.event.ScoreEvent
+import net.eviera.invasores.event.GameEvent
 import net.eviera.invasores.helper.Const
 import net.eviera.invasores.manager.CollisionManager
 import net.eviera.invasores.manager.EventManager
@@ -30,6 +30,11 @@ class Alien (x: Float, y: Float, val score: Int) : CollisionableRectangle(x, y, 
         if (alive || isExploding) {
             x += alienXDisplacement
             y += alienYDisplacement
+
+            //Si un alien llega al fondo, se acaba el juego
+            if (y + Const.SP_SIZE >= Const.GAME_FLOOR) {
+                EventManager.publish(GameEvent(0, true))
+            }
         }
 
         if (alive) {
@@ -90,7 +95,7 @@ class Alien (x: Float, y: Float, val score: Int) : CollisionableRectangle(x, y, 
             //No hace nada
         } else {
             playExplosion()
-            EventManager.publish(ScoreEvent(score))
+            EventManager.publish(GameEvent(score))
             EventManager.publish(AlienEvent(false))
             alienExplosion.restart()
             remove()

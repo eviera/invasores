@@ -77,10 +77,9 @@ class GameState : BasicGameState() {
 
     var score = 0
     var lives = 3
-    var gameOver = false
 
     override fun init(gc: GameContainer?, game: StateBasedGame?) {
-        if (gc == null ) throw RuntimeException("Error de gc null")
+        if (gc == null || game == null) throw RuntimeException("Error de init")
 
         fontComputer24 = TrueTypeFont(Font.createFont(Font.TRUETYPE_FONT, ResourceLoader.getResourceAsStream("/resources/fonts/Computerfont.ttf")).deriveFont(Const.FONT_SIZE_24), false)
 
@@ -134,9 +133,14 @@ class GameState : BasicGameState() {
         Alien.Sounds.init(Sound("resources/sounds/alien_explosion.wav"), Sound("resources/sounds/alien_shoot.wav"))
 
         //Escucho eventos
-        EventManager.addScoreListener(object : Listener {
+        EventManager.addGameListener(object : Listener {
             override fun fired(e: Event) {
-                score += (e as ScoreEvent).score
+                val gameEvent = (e as GameEvent)
+                score += gameEvent.score
+                if (gameEvent.over) {
+                    gc.input.clearKeyPressedRecord();
+                    game.enterState(Const.STATES.GAMEOVER.ordinal, null, FadeInTransition(Color.black, Const.PAUSE_TRANSITION_SPEED))
+                }
             }
         })
 
@@ -165,7 +169,7 @@ class GameState : BasicGameState() {
                 if (!playerEvent.playerAlive) {
                     lives--
                     if (lives == 0) {
-                        gameOver = true
+                        EventManager.publish(GameEvent(0, true))
                     }
                 }
             }
@@ -185,11 +189,6 @@ class GameState : BasicGameState() {
         var correctedDelta = delta
         if (correctedDelta > 20) {
             correctedDelta = 20
-        }
-
-        if (gameOver) {
-            gc.input.clearKeyPressedRecord();
-            game.enterState(Const.STATES.GAMEOVER.ordinal, null, FadeInTransition(Color.black, Const.PAUSE_TRANSITION_SPEED))
         }
 
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
@@ -282,7 +281,6 @@ class GameState : BasicGameState() {
         var alienToShoot = -1
         if (hasAlienPermissionToFire) {
             alienToShoot = ran.nextInt(aliensAliveCount)
-            hasAlienPermissionToFire = false
         }
         var i = 0
         for (alien in aliens) {
@@ -306,11 +304,6 @@ class GameState : BasicGameState() {
 
     override fun render(gc: GameContainer?, game: StateBasedGame?, g: Graphics?) {
         if (gc == null || g == null) throw RuntimeException("Error de inicializacion")
-
-        //Rendereo elementos de pantalla
-        if (gameOver) {
-            return
-        }
 
         //Mapa
         tiledMap.render(0, 0)

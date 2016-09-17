@@ -14,8 +14,8 @@ object EventManager {
     }
 
 
-    fun addScoreListener(listener: Listener) {
-        addListener(Event.Type.SCORE, listener)
+    fun addGameListener(listener: Listener) {
+        addListener(Event.Type.GAME, listener)
     }
 
     fun addBrickListener(listener: Listener) {
