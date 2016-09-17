@@ -31,13 +31,13 @@ object Helper {
     fun grayImage(gc: GameContainer): Image {
         val background = Image(Const.GAME_WIDTH, Const.GAME_HEIGHT)
         gc.graphics.copyArea(background, 0, 0)
-        GL11.glPixelTransferf(GL11.GL_RED_SCALE, 0.30f);
-        GL11.glPixelTransferf(GL11.GL_GREEN_SCALE, 0.59f);
-        GL11.glPixelTransferf(GL11.GL_BLUE_SCALE, 0.11f);
-        background.bind();
+        GL11.glPixelTransferf(GL11.GL_RED_SCALE, 0.30f)
+        GL11.glPixelTransferf(GL11.GL_GREEN_SCALE, 0.59f)
+        GL11.glPixelTransferf(GL11.GL_BLUE_SCALE, 0.11f)
+        background.bind()
         GL11.glCopyTexImage2D(SGL.GL_TEXTURE_2D, 0, GL11.GL_LUMINANCE16, 0, gc.height - background.height, background.texture.textureWidth,
-                background.texture.textureHeight, 0);
-        background.ensureInverted();
+                background.texture.textureHeight, 0)
+        background.ensureInverted()
 
         return background
     }

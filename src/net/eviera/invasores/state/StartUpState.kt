@@ -29,7 +29,7 @@ class StartUpState : BasicGameState() {
         val input = gc.input
 
         if (input.isKeyPressed(Input.KEY_SPACE)) {
-            gc.input.clearKeyPressedRecord();
+            gc.input.clearKeyPressedRecord()
             game.enterState(Const.STATES.GAME.ordinal, null, FadeInTransition(Color.black))
         }
 
@@ -44,9 +44,9 @@ class StartUpState : BasicGameState() {
         g.drawImage(backimg, 0f, 0f)
         g.color = Color.white
         var i = 0
-        for (score in HighScoreManager.scores) {
-            fontComputer24.drawString(Const.GAME_WIDTH / 2f - 100f, Const.GAME_HEIGHT / 2f + Const.FONT_SIZE_24 * (2 + i), score.name)
-            fontComputer24.drawString(Const.GAME_WIDTH / 2f + 80f, Const.GAME_HEIGHT / 2f + Const.FONT_SIZE_24 * (2 + i), score.score.toString())
+        for ((name, score) in HighScoreManager.scores) {
+            fontComputer24.drawString(Const.GAME_WIDTH / 2f - 100f, Const.GAME_HEIGHT / 2f + Const.FONT_SIZE_24 * (2 + i), name)
+            fontComputer24.drawString(Const.GAME_WIDTH / 2f + 80f, Const.GAME_HEIGHT / 2f + Const.FONT_SIZE_24 * (2 + i), score.toString())
             i++
         }
     }

@@ -68,7 +68,7 @@ class GameState : BasicGameState() {
     /**
      * Determina si se mueve en forma horizontal o vertical (arranca en horizontal)
      */
-    var movimiento : Const.MOV = Const.MOV.H;
+    var movimiento : Const.MOV = Const.MOV.H
 
     /**
      * Va sumando los deltas (milisegundos). Cuando superan el ALIEN_START_FIRE_RATE_MILLIS pueden disparar
@@ -138,7 +138,7 @@ class GameState : BasicGameState() {
                 val gameEvent = (e as GameEvent)
                 score += gameEvent.score
                 if (gameEvent.over) {
-                    gc.input.clearKeyPressedRecord();
+                    gc.input.clearKeyPressedRecord()
                     game.enterState(Const.STATES.GAMEOVER.ordinal, null, FadeInTransition(Color.black, Const.PAUSE_TRANSITION_SPEED))
                 }
             }
@@ -194,7 +194,7 @@ class GameState : BasicGameState() {
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
             PauseState.img = Helper.grayImage(gc)
 
-            gc.input.clearKeyPressedRecord();
+            gc.input.clearKeyPressedRecord()
             game.enterState(Const.STATES.PAUSE.ordinal, null, FadeInTransition(Color.black, Const.PAUSE_TRANSITION_SPEED))
         }
 
@@ -223,8 +223,8 @@ class GameState : BasicGameState() {
         player.update(gc, correctedDelta)
 
         //Calculo la velocidad y direccion de los aliens
-        var alienXDisplacement = 0f;
-        var alienYDisplacement = 0f;
+        var alienXDisplacement = 0f
+        var alienYDisplacement = 0f
         when(movimiento) {
 
         //Movimiento horizontal
@@ -312,7 +312,7 @@ class GameState : BasicGameState() {
         g.color = Color.white
 
         g.drawLine(0f, Const.GAME_FLOOR, Const.GAME_WIDTH * 1f, Const.GAME_FLOOR)
-        fontComputer24.drawString(Const.FONT_SIZE_24 / 2, Const.GAME_FLOOR + 2, "POINTS: ${score}")
+        fontComputer24.drawString(Const.FONT_SIZE_24 / 2, Const.GAME_FLOOR + 2, "POINTS: $score")
         for (liveCount in 0..lives - 1) {
             g.drawImage(playerScoreSprite, Const.GAME_WIDTH - (liveCount * Const.SP_SIZE) - Const.SP_SIZE -  Const.FONT_SIZE_24 / 3, Const.GAME_FLOOR - 6)
         }

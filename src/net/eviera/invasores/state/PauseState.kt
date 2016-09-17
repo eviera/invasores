@@ -36,7 +36,7 @@ class PauseState : BasicGameState() {
         }
 
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
-            gc.input.clearKeyPressedRecord();
+            gc.input.clearKeyPressedRecord()
             game.enterState(Const.STATES.GAME.ordinal, null, FadeInTransition(Color.black, Const.PAUSE_TRANSITION_SPEED))
         }
 
@@ -75,7 +75,7 @@ class PauseState : BasicGameState() {
     }
 
     companion object Background {
-        lateinit var img: Image;
+        lateinit var img: Image
     }
 
 }

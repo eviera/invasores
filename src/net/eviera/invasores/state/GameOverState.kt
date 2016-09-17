@@ -28,7 +28,7 @@ class GameOverState : BasicGameState() {
         if (gc == null || g == null) throw RuntimeException("Error de inicializacion")
 
         g.color = Color.white
-        g.drawString("Game Over", 100f, 100f);
+        g.drawString("Game Over", 100f, 100f)
 
 
     }
