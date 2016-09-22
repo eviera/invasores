@@ -184,6 +184,7 @@ class GameState : BasicGameState() {
         //TODO REMOVER!! Este es un hack para poder freezar la pantalla y ver que pasa
         if (Helper.PAUSE_DEV_MODE_ONLY) { return }
 
+        val maxx = aliens.maxBy { it!!.x }
 
         //Si hay mucho delta, lo seteo a un minimo de 20 (para cuando se draggea la ventana)
         var correctedDelta = delta
@@ -223,6 +224,7 @@ class GameState : BasicGameState() {
         player.update(gc, correctedDelta)
 
         //Calculo la velocidad y direccion de los aliens
+        val (alienMinX, alienMaxX) = Helper.getAlienMinMaxX(aliens)
         var alienXDisplacement = 0f
         var alienYDisplacement = 0f
         when(movimiento) {
@@ -233,16 +235,16 @@ class GameState : BasicGameState() {
                 alienXDisplacement = alienSpeed * correctedDelta * aliensDirection
                 var aliensXDest = aliensX + alienXDisplacement
                 //Si me paso del borde derecho
-                if (aliensXDest > Const.ALIEN_END_X) {
-                    aliensXDest = Const.ALIEN_END_X
+                if (aliensXDest > alienMaxX) {
+                    aliensXDest = alienMaxX
                     aliensDirection = -1
                     alienXDisplacement = 0f
                     movimiento = Const.MOV.V
                     //Incremento la velocidad de los aliens
                     alienSpeed += Const.ALIEN_SPEED_INCREMENT
                     //Si me paso del borde izquierdo
-                } else if (aliensXDest < Const.ALIEN_START_X) {
-                    aliensXDest = Const.ALIEN_START_X
+                } else if (aliensXDest < alienMinX) {
+                    aliensXDest = alienMinX
                     aliensDirection = 1
                     alienXDisplacement = 0f
                     movimiento = Const.MOV.V

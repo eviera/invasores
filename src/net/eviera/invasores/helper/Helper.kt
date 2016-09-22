@@ -1,5 +1,7 @@
 package net.eviera.invasores.helper
 
+import net.eviera.invasores.entity.Alien
+import net.eviera.invasores.helper.Const.ALIEN_END_X
 import net.eviera.invasores.helper.Const.ALIEN_GAP_X
 import net.eviera.invasores.helper.Const.ALIEN_GAP_Y
 import net.eviera.invasores.helper.Const.ALIEN_START_X
@@ -49,6 +51,32 @@ object Helper {
     fun TrueTypeFont.drawStringCentered(y: Float, width: Int, whatChars: String, color: Color) {
         val centerX = width / 2f - getWidth(whatChars) / 2
         drawString(centerX, y, whatChars, color)
+    }
+
+    fun getAlienMinMaxX(aliens: Array<Alien?>) : Pair<Float, Float> {
+        var minX = Const.GAME_WIDTH * 1f
+        var maxX = 0f
+
+        hay algun error en el calculo del min
+
+
+        for (alien in aliens) {
+            if (alien != null && alien.alive) {
+                if (alien.x > maxX) {
+                    maxX = alien.x
+                }
+                if (alien.x < minX) {
+                    minX = alien.x
+                }
+            }
+        }
+        if (maxX > ALIEN_END_X) {
+            maxX = ALIEN_END_X
+        }
+        if (minX < ALIEN_START_X) {
+            minX = ALIEN_START_X
+        }
+        return Pair(minX, maxX)
     }
 
     var PAUSE_DEV_MODE_ONLY = false

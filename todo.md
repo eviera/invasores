@@ -18,7 +18,7 @@
 - De la mecanica del juego
   - ~~Incrementar la velocidad de los aliens cuando bajan~~
   - Incrementar el rate of fire
-  - Contador de vidas
+  - ~~Contador de vidas~~
 - ~~Tiros mas lentos-~~
 - ~~Explosion alien~~
 - ~~Explosion nave~~
@@ -33,7 +33,7 @@
 
 #Bugs
 - ~~Debajo de los aliens al principio aparecen unas lineas (es un bug cuando un tile esta todo lleno, como los bricks)~~
-- Parece que los aliens no disparan en el borde
+- ~~Parece que los aliens no disparan en el borde~~
 - Cuando se matan aliens de un costado, los que quedan no llegan al borde de la pantalla (es como si los que se mataron siguieran ahi)
 
 #NiceToHave
