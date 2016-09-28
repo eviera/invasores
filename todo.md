@@ -34,7 +34,8 @@
 #Bugs
 - ~~Debajo de los aliens al principio aparecen unas lineas (es un bug cuando un tile esta todo lleno, como los bricks)~~
 - ~~Parece que los aliens no disparan en el borde~~
-- Cuando se matan aliens de un costado, los que quedan no llegan al borde de la pantalla (es como si los que se mataron siguieran ahi)
+- ~~Cuando se matan aliens de un costado, los que quedan no llegan al borde de la pantalla (es como si los que se mataron siguieran ahi)~~
+- El minimo en getAlienMinMaxX queda muy pegado a la izquierda de la pantalla
 
 #NiceToHave
 - Musica intro

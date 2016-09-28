@@ -114,7 +114,7 @@ class GameState : BasicGameState() {
             val colDisp = if (f == 1 ) Const.ALIEN_X_SHIFT else 1f
             for (c in 0..Const.ALIEN_COLS - 1) {
                 val alienAnimation = Animation(arrayOf(sprites.getSprite(f * 2, 0), sprites.getSprite(f * 2 + 1, 0)), Helper.getRandomAnimationInterval())
-                val alien = Alien(Helper.getAlienColPos(colDisp, c), Helper.getAlienRowPos(f), Const.SCORE_ALIEN.values()[f].score)
+                val alien = Alien(Helper.getAlienColPos(colDisp, c), Helper.getAlienRowPos(f), f, c, Const.SCORE_ALIEN.values()[f].score)
                 alien.init(alienAnimation, sprites.getSprite(2, 1), alienExplosion)
                 aliens[f * Const.ALIEN_COLS + c] = alien
             }

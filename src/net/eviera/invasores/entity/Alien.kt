@@ -7,7 +7,7 @@ import net.eviera.invasores.manager.CollisionManager
 import net.eviera.invasores.manager.EventManager
 import org.newdawn.slick.*
 
-class Alien (x: Float, y: Float, val score: Int) : CollisionableRectangle(x, y, Const.SP_SIZE, Const.SP_SIZE){
+class Alien (x: Float, y: Float, val f: Int, val c: Int, val score: Int) : CollisionableRectangle(x, y, Const.SP_SIZE, Const.SP_SIZE){
 
     lateinit var sprite: Animation
     lateinit var shootSprite: Image

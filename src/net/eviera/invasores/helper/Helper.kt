@@ -1,7 +1,6 @@
 package net.eviera.invasores.helper
 
 import net.eviera.invasores.entity.Alien
-import net.eviera.invasores.helper.Const.ALIEN_END_X
 import net.eviera.invasores.helper.Const.ALIEN_GAP_X
 import net.eviera.invasores.helper.Const.ALIEN_GAP_Y
 import net.eviera.invasores.helper.Const.ALIEN_START_X
@@ -54,30 +53,17 @@ object Helper {
     }
 
     fun getAlienMinMaxX(aliens: Array<Alien?>) : Pair<Float, Float> {
-        var minX = Const.GAME_WIDTH * 1f
-        var maxX = 0f
+        //Busco las columnas del primer y ultimo alien vivo
+        val aliensAlive = aliens.filter { it != null && it.alive }
+        val firstCol =  aliensAlive.minBy { it!!.c }!!.c
+        val lastCol =  aliensAlive.maxBy { it!!.c }!!.c
 
-        hay algun error en el calculo del min
+        val min = if (firstCol > 0) Const.ALIEN_GAP_FROM_BORDERS * 2 - Helper.getAlienColPos(Const.ALIEN_X_SHIFT, firstCol) else Const.ALIEN_GAP_FROM_BORDERS
+        val max = Const.GAME_WIDTH - (Const.ALIEN_GAP_FROM_BORDERS + Helper.getAlienColPos(Const.ALIEN_X_SHIFT, lastCol) + Const.ALIEN_GAP_FROM_BORDERS)
 
-
-        for (alien in aliens) {
-            if (alien != null && alien.alive) {
-                if (alien.x > maxX) {
-                    maxX = alien.x
-                }
-                if (alien.x < minX) {
-                    minX = alien.x
-                }
-            }
-        }
-        if (maxX > ALIEN_END_X) {
-            maxX = ALIEN_END_X
-        }
-        if (minX < ALIEN_START_X) {
-            minX = ALIEN_START_X
-        }
-        return Pair(minX, maxX)
+        return Pair(min, max)
     }
+
 
     var PAUSE_DEV_MODE_ONLY = false
     fun DO_PAUSE_DEV_MODE_ONLY() {
