@@ -61,6 +61,16 @@ class GameState : BasicGameState() {
     var aliensEndY = aliensY + Const.SP_SIZE
 
     /**
+     * Minimo X hasta donde deben llegar los aliens (se recalcula cuando los aliens se mueren)
+     */
+    var alienMinX = 0f
+
+    /**
+     * Maximo X hasta donde deben llegar los aliens (se recalcula cuando los aliens se mueren)
+     */
+    var alienMaxX = 0f
+
+    /**
      * Direccion del movimiento horizonal: 1 a la derecha, -1 a la izquierda
      */
     var aliensDirection = 1
@@ -120,6 +130,11 @@ class GameState : BasicGameState() {
             }
         }
 
+        //Seteo los valores iniciales minimo y maximo hasta donde llegan los aliens
+        val alienMinMaxX = Helper.getAlienMinMaxX(aliens)
+        alienMinX = alienMinMaxX.first
+        alienMaxX = alienMinMaxX.second
+
         //Cargo la nave nodriza
         //nodriza = Alien()
 
@@ -159,6 +174,10 @@ class GameState : BasicGameState() {
                     if (aliensAliveCount < 0) {
                         aliensAliveCount = 0
                     }
+                    //Recalculo los limites de los aliens cuando uno se muere
+                    val alienMinMaxXEvent = Helper.getAlienMinMaxX(aliens)
+                    alienMinX = alienMinMaxXEvent.first
+                    alienMaxX = alienMinMaxXEvent.second
                 }
             }
         })
@@ -224,7 +243,7 @@ class GameState : BasicGameState() {
         player.update(gc, correctedDelta)
 
         //Calculo la velocidad y direccion de los aliens
-        val (alienMinX, alienMaxX) = Helper.getAlienMinMaxX(aliens)
+
         var alienXDisplacement = 0f
         var alienYDisplacement = 0f
         when(movimiento) {
