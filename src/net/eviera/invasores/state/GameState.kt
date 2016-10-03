@@ -11,7 +11,6 @@ import net.eviera.invasores.manager.CollisionManager
 import net.eviera.invasores.manager.EventManager
 import org.newdawn.slick.*
 import org.newdawn.slick.openal.SoundStore
-import org.newdawn.slick.particles.ParticleIO
 import org.newdawn.slick.state.BasicGameState
 import org.newdawn.slick.state.StateBasedGame
 import org.newdawn.slick.state.transition.FadeInTransition
@@ -111,8 +110,7 @@ class GameState : BasicGameState() {
         }
 
         //Cargo la nave del jugador
-        val playerExplosionSystem = ParticleIO.loadConfiguredSystem("/resources/emitters/player_explosion.xml")
-        player.init(sprites.getSprite(0, 1), sprites.getSprite(1, 1), playerExplosionSystem)
+        player.init(sprites.getSprite(0, 1), sprites.getSprite(1, 1))
         playerScoreSprite = sprites.getSprite(3, 1)
 
         //Cargo los aliens

@@ -10,6 +10,7 @@ import net.eviera.invasores.manager.CollisionManager
 import net.eviera.invasores.manager.EventManager
 import org.newdawn.slick.*
 import org.newdawn.slick.particles.ConfigurableEmitter
+import org.newdawn.slick.particles.ParticleIO
 import org.newdawn.slick.particles.ParticleSystem
 
 class Player : CollisionableRectangle(Const.PLAYER_START_X, Const.PLAYER_START_Y, SP_SIZE, SP_SIZE) {
@@ -24,10 +25,10 @@ class Player : CollisionableRectangle(Const.PLAYER_START_X, Const.PLAYER_START_Y
     var isExploding = false
     var playerExplosionRemainingTime = 0f
 
-    fun init(sprite: Image, shootSprite: Image, playerExplosionSystem: ParticleSystem) {
+    fun init(sprite: Image, shootSprite: Image) {
         this.sprite = sprite
         this.shootSprite = shootSprite
-        this.playerExplosionSystem = playerExplosionSystem
+        this.playerExplosionSystem = ParticleIO.loadConfiguredSystem("/resources/emitters/player_explosion.xml")
         this.playerExplosionEmitter = playerExplosionSystem.getEmitter(0) as ConfigurableEmitter
         CollisionManager.add(this)
     }
