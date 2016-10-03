@@ -16,8 +16,6 @@ import org.newdawn.slick.state.BasicGameState
 import org.newdawn.slick.state.StateBasedGame
 import org.newdawn.slick.state.transition.FadeInTransition
 import org.newdawn.slick.tiled.TiledMap
-import org.newdawn.slick.util.ResourceLoader
-import java.awt.Font
 import java.util.*
 
 class GameState : BasicGameState() {
@@ -91,7 +89,7 @@ class GameState : BasicGameState() {
     override fun init(gc: GameContainer?, game: StateBasedGame?) {
         if (gc == null || game == null) throw RuntimeException("Error de init")
 
-        fontComputer24 = TrueTypeFont(Font.createFont(Font.TRUETYPE_FONT, ResourceLoader.getResourceAsStream("/resources/fonts/Computerfont.ttf")).deriveFont(Const.FONT_SIZE_24), false)
+        fontComputer24 = Helper.getComputerFont(Const.FONT_SIZE_24)
 
         //Volumen al medio
         SoundStore.get().soundVolume = 0.5f

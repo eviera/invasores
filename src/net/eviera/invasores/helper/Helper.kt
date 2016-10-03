@@ -9,6 +9,8 @@ import net.eviera.invasores.helper.Const.SP_SIZE
 import org.lwjgl.opengl.GL11
 import org.newdawn.slick.*
 import org.newdawn.slick.opengl.renderer.SGL
+import org.newdawn.slick.util.ResourceLoader
+import java.awt.Font
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.util.*
@@ -61,7 +63,15 @@ object Helper {
         return Pair(min, max)
     }
 
+    val fontCache = HashMap<Float, TrueTypeFont>()
 
+    fun getComputerFont(fontSize: Float) : TrueTypeFont {
+        if (!fontCache.contains(fontSize)) {
+            fontCache[fontSize] = TrueTypeFont(Font.createFont(Font.TRUETYPE_FONT, ResourceLoader.getResourceAsStream("/resources/fonts/Computerfont.ttf")).deriveFont(fontSize), false)
+        }
+        return fontCache[fontSize]!!
+
+    }
 
     //TODO REMOVER!!
     var PAUSE_DEV_MODE_ONLY = false

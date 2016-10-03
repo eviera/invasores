@@ -1,13 +1,12 @@
 package net.eviera.invasores.state
 
 import net.eviera.invasores.helper.Const
+import net.eviera.invasores.helper.Helper
 import net.eviera.invasores.manager.HighScoreManager
 import org.newdawn.slick.*
 import org.newdawn.slick.state.BasicGameState
 import org.newdawn.slick.state.StateBasedGame
 import org.newdawn.slick.state.transition.FadeInTransition
-import org.newdawn.slick.util.ResourceLoader
-import java.awt.Font
 
 class StartUpState : BasicGameState() {
 
@@ -17,7 +16,7 @@ class StartUpState : BasicGameState() {
     override fun init(gc: GameContainer?, game: StateBasedGame?) {
         backimg = Image("/resources/images/startup_background.png")
 
-        fontComputer24 = TrueTypeFont(Font.createFont(Font.TRUETYPE_FONT, ResourceLoader.getResourceAsStream("/resources/fonts/Computerfont.ttf")).deriveFont(Const.FONT_SIZE_24), false)
+        fontComputer24 = Helper.getComputerFont(Const.FONT_SIZE_24)
 
         //Inicializo el score
         HighScoreManager.init()

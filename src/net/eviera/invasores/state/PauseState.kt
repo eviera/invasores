@@ -1,13 +1,12 @@
 package net.eviera.invasores.state
 
 import net.eviera.invasores.helper.Const
+import net.eviera.invasores.helper.Helper
 import net.eviera.invasores.helper.Helper.drawStringCentered
 import org.newdawn.slick.*
 import org.newdawn.slick.state.BasicGameState
 import org.newdawn.slick.state.StateBasedGame
 import org.newdawn.slick.state.transition.FadeInTransition
-import org.newdawn.slick.util.ResourceLoader
-import java.awt.Font
 
 
 class PauseState : BasicGameState() {
@@ -21,8 +20,8 @@ class PauseState : BasicGameState() {
     override fun init(gc: GameContainer?, game: StateBasedGame?) {
         pauseLogoBackground = Image("/resources/images/pause_logo_background.png")
 
-        fontComputer24 = TrueTypeFont(Font.createFont(Font.TRUETYPE_FONT, ResourceLoader.getResourceAsStream("/resources/fonts/Computerfont.ttf")).deriveFont(Const.FONT_SIZE_24), false)
-        fontComputer32 = TrueTypeFont(Font.createFont(Font.TRUETYPE_FONT, ResourceLoader.getResourceAsStream("/resources/fonts/Computerfont.ttf")).deriveFont(Const.FONT_SIZE_32), false)
+        fontComputer24 = Helper.getComputerFont(Const.FONT_SIZE_24)
+        fontComputer32 = Helper.getComputerFont(Const.FONT_SIZE_32)
     }
 
     override fun update(gc: GameContainer?, game: StateBasedGame?, delta: Int) {
