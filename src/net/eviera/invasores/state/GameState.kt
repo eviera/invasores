@@ -201,9 +201,8 @@ class GameState : BasicGameState() {
         val input = gc.input
 
         //TODO REMOVER!! Este es un hack para poder freezar la pantalla y ver que pasa
+        if (input.isKeyPressed(Input.KEY_1)) Helper.PAUSE_DEV_MODE_ONLY = !Helper.PAUSE_DEV_MODE_ONLY
         if (Helper.PAUSE_DEV_MODE_ONLY) { return }
-
-        val maxx = aliens.maxBy { it!!.x }
 
         //Si hay mucho delta, lo seteo a un minimo de 20 (para cuando se draggea la ventana)
         var correctedDelta = delta
@@ -346,6 +345,16 @@ class GameState : BasicGameState() {
         }
 
         flashMessage.render(gc, g)
+
+        //TODO REMOVER!!
+        if (Helper.PAUSE_DEV_MODE_ONLY) {
+            Helper.PAUSE_DEV_DRAW(g, alienMinX, 100f, "alienMinX");
+            Helper.PAUSE_DEV_DRAW(g, alienMaxX, 100f, "alienMaxX");
+            Helper.PAUSE_DEV_DRAW(g, Helper.getAlienColPos(Const.ALIEN_X_SHIFT, 0), 120f, "Col0");
+            Helper.PAUSE_DEV_DRAW(g, Helper.getAlienColPos(Const.ALIEN_X_SHIFT, 1), 120f, "Col1");
+            Helper.PAUSE_DEV_DRAW(g, Helper.getAlienColPos(Const.ALIEN_X_SHIFT, 2), 120f, "Col2");
+            Helper.PAUSE_DEV_DRAW(g, aliensX, 150f, "aliensX");
+        }
 
     }
 

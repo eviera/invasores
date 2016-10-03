@@ -7,10 +7,7 @@ import net.eviera.invasores.helper.Const.ALIEN_START_X
 import net.eviera.invasores.helper.Const.ALIEN_START_Y
 import net.eviera.invasores.helper.Const.SP_SIZE
 import org.lwjgl.opengl.GL11
-import org.newdawn.slick.Color
-import org.newdawn.slick.GameContainer
-import org.newdawn.slick.Image
-import org.newdawn.slick.TrueTypeFont
+import org.newdawn.slick.*
 import org.newdawn.slick.opengl.renderer.SGL
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -58,16 +55,23 @@ object Helper {
         val firstCol =  aliensAlive.minBy { it!!.c }!!.c
         val lastCol =  aliensAlive.maxBy { it!!.c }!!.c
 
-        val min = if (firstCol > 0) Const.ALIEN_GAP_FROM_BORDERS * 2 - Helper.getAlienColPos(Const.ALIEN_X_SHIFT, firstCol) else Const.ALIEN_GAP_FROM_BORDERS
+        val min = if (firstCol > 0) - Helper.getAlienColPos(Const.ALIEN_X_SHIFT, firstCol - 1) - Const.ALIEN_GAP_FROM_BORDERS else Const.ALIEN_GAP_FROM_BORDERS
         val max = Const.GAME_WIDTH - (Const.ALIEN_GAP_FROM_BORDERS + Helper.getAlienColPos(Const.ALIEN_X_SHIFT, lastCol) + Const.ALIEN_GAP_FROM_BORDERS)
 
         return Pair(min, max)
     }
 
 
+
+    //TODO REMOVER!!
     var PAUSE_DEV_MODE_ONLY = false
     fun DO_PAUSE_DEV_MODE_ONLY() {
         PAUSE_DEV_MODE_ONLY = true
+    }
+    fun PAUSE_DEV_DRAW(g:Graphics, x: Float, y: Float, t: String) {
+        g.color = Color.cyan
+        g.drawOval(x, y, 2f, 2f);
+        g.drawString(t, x + 10f, y - 10f)
     }
 
 }
