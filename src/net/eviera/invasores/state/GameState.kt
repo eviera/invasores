@@ -288,7 +288,7 @@ class GameState : BasicGameState() {
 
         //Determino si paso tiempo suficiente para que los aliens puedan disparar
         var hasAlienPermissionToFire = false
-        aliensShootDeltaCounter += delta
+        aliensShootDeltaCounter += correctedDelta
         if (aliensShootDeltaCounter >= Const.ALIEN_START_FIRE_RATE_MILLIS) {
             hasAlienPermissionToFire = ran.nextInt(1) == 0
             aliensShootDeltaCounter = 0

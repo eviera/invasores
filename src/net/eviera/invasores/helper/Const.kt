@@ -92,4 +92,6 @@ object Const {
 
     val FLASH_TIMEOUT = 1 * 1000 //En segundos, cuanto se queda el mensaje flash activo
     val PAUSE_TRANSITION_SPEED = 200 //En ms lo que tarda en transicionar desde/hacia la pantalla de pausa
+
+    val COLOR_CYCLE_RATE_MILIS = 50 //cada cuantos ms ciclan los colores (por ejemplo en highscore)
 }

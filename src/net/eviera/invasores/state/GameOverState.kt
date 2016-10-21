@@ -31,10 +31,11 @@ class GameOverState : BasicGameState() {
             gc.exit()
         }
 
+        HighScoreManager.update(gc, game, delta)
     }
 
     override fun render(gc: GameContainer?, game: StateBasedGame?, g: Graphics?) {
-        if (gc == null || g == null) throw RuntimeException("Error de inicializacion")
+        if (gc == null || g == null || game == null) throw RuntimeException("Error de inicializacion")
         g.drawImage(backimg, 0f, 0f)
 
         HighScoreManager.render(gc, game, g, isInHighScoreState)
