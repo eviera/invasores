@@ -3,6 +3,7 @@ package net.eviera.invasores.manager
 import net.eviera.invasores.entity.Score
 import net.eviera.invasores.helper.Const
 import net.eviera.invasores.helper.Helper
+import net.eviera.invasores.helper.Helper.drawStringCentered
 import org.newdawn.slick.*
 import org.newdawn.slick.state.StateBasedGame
 import java.util.*
@@ -10,11 +11,13 @@ import java.util.*
 object HighScoreManager {
 
     lateinit var fontComputer24: TrueTypeFont
+    lateinit var fontComputer32: TrueTypeFont
     val scores = ArrayList<Score>(3)
     val savedState = SavedState("invasores.state")
 
     fun init() {
         fontComputer24 = Helper.getComputerFont(Const.FONT_SIZE_24)
+        fontComputer32 = Helper.getComputerFont(Const.FONT_SIZE_32)
 
         //Cargo 3 highscores
         savedState.load()
@@ -28,7 +31,8 @@ object HighScoreManager {
     fun render(gc: GameContainer?, game: StateBasedGame?, g: Graphics?) {
         if (gc == null || g == null) throw RuntimeException("Error de inicializacion")
 
-        g.color = Color.white
+        fontComputer32.drawStringCentered(Const.GAME_WIDTH / 2f - 300f, Const.GAME_WIDTH, "HIGH SCORES")
+
         var i = 0
         for ((name, value) in HighScoreManager.scores) {
             fontComputer24.drawString(Const.GAME_WIDTH / 2f - 100f, Const.GAME_HEIGHT / 2f + Const.FONT_SIZE_24 * (2 + i), name)
