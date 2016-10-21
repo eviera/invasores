@@ -150,6 +150,7 @@ class GameState : BasicGameState() {
                 score += gameEvent.score
                 if (gameEvent.over) {
                     gc.input.clearKeyPressedRecord()
+                    GameOverState.score = score
                     game.enterState(Const.STATES.GAMEOVER.ordinal, null, FadeInTransition(Color.black, Const.PAUSE_TRANSITION_SPEED))
                 }
             }

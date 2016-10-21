@@ -15,6 +15,9 @@
 - ~~Pantalla intro~~
 - Pantalla Game Over
 - HighScore
+  - Quitar la palabra High Score del back de StartUpState y ponerla como font. Si estoy en HighScoreState poner "NEW HIGH SCORE" (color cyclye), sino "HIGH SCORES" (white)
+  - Poder dibujar 2 o 3 scores dependiendo si esta en HighScoreState o no
+  - Aceptar entrada de texto para el highscore con color cycle
 - De la mecanica del juego
   - ~~Incrementar la velocidad de los aliens cuando bajan~~
   - Incrementar el rate of fire
