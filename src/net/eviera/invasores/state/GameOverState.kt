@@ -12,14 +12,14 @@ class GameOverState : BasicGameState() {
     lateinit var backimg: Image
     lateinit var fontComputer24: TrueTypeFont
     //Determina si estoy mostrando un highscore o no
-    var highScoreState = false
+    var isInHighScoreState = false
 
     override fun init(gc: GameContainer?, game: StateBasedGame?) {
         backimg = Image("/resources/images/gameover_background.png")
         fontComputer24 = Helper.getComputerFont(Const.FONT_SIZE_24)
 
         //Busco si tengo un nuevo highscore, y de ser asi, cambio el estado de highScoreState a true
-        highScoreState = HighScoreManager.isNewScore(State.score)
+        isInHighScoreState = HighScoreManager.isNewScore(State.score)
 
     }
 
@@ -37,7 +37,7 @@ class GameOverState : BasicGameState() {
         if (gc == null || g == null) throw RuntimeException("Error de inicializacion")
         g.drawImage(backimg, 0f, 0f)
 
-        HighScoreManager.render(gc, game, g)
+        HighScoreManager.render(gc, game, g, isInHighScoreState)
 
     }
 

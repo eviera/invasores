@@ -28,10 +28,14 @@ object HighScoreManager {
         }
     }
 
-    fun render(gc: GameContainer?, game: StateBasedGame?, g: Graphics?) {
+    fun render(gc: GameContainer?, game: StateBasedGame?, g: Graphics?, isInHighScoreState: Boolean) {
         if (gc == null || g == null) throw RuntimeException("Error de inicializacion")
 
-        fontComputer32.drawStringCentered(Const.GAME_WIDTH / 2f - 300f, Const.GAME_WIDTH, "HIGH SCORES")
+        if (isInHighScoreState) {
+            fontComputer32.drawStringCentered(Const.GAME_WIDTH / 2f - 300f, Const.GAME_WIDTH, "NEW HIGH SCORE")
+        } else {
+            fontComputer32.drawStringCentered(Const.GAME_WIDTH / 2f - 300f, Const.GAME_WIDTH, "HIGH SCORES")
+        }
 
         var i = 0
         for ((name, value) in HighScoreManager.scores) {
