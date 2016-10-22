@@ -14,9 +14,11 @@ object HighScoreManager {
     lateinit var fontComputer32: TrueTypeFont
     val scores = ArrayList<Score>(3)
     val savedState = SavedState("invasores.state")
-    var colorCycle = Color.white
     var colorCounter = 0
-    var i = 0
+    var colorIndex = 0
+    val colors = arrayOf(Color(255, 64, 239), Color(254, 242, 56), Color(255, 56, 93),
+            Color(54, 255, 97), Color(82, 59, 255), Color(255, 115, 54), Color(255, 63, 144),
+            Color(62, 216, 255), Color(198, 255, 61))
 
     fun init() {
         fontComputer24 = Helper.getComputerFont(Const.FONT_SIZE_24)
@@ -40,42 +42,17 @@ object HighScoreManager {
         colorCounter += correctedDelta
         if (colorCounter >= Const.COLOR_CYCLE_RATE_MILIS) {
             colorCounter = 0
-
-            //TODO PRUEBAS COLORES
-
-
-            /*
-            val hsbArray = FloatArray(3)
-            java.awt.Color.RGBtoHSB(colorCycle.red, colorCycle.green, colorCycle.blue, hsbArray)
-            var hue = hsbArray[0]
-            hue += 0.02f
-            if (hue > 1.0f) {
-                hue = 0f
+            colorIndex++
+            if (colorIndex == colors.size) {
+                colorIndex = 0
             }
-            val colorCalculator = java.awt.Color.getHSBColor(hue, 1f, 1f)
-            colorCycle = Color(colorCalculator.red, colorCalculator.green, colorCalculator.blue)
-            */
-            i++
-            if (i >= 255) i = 0
-            colorCycle = makeColorGradient(i, 2.4f, 2.4f, 2.4f, 0, 2, 4, 128, 127)
         }
 
     }
 
-    //De http://krazydad.com/tutorials/makecolors.php
-    fun makeColorGradient(i: Int, frequency1: Float, frequency2: Float, frequency3: Float, phase1: Int, phase2: Int, phase3: Int, center: Int, width: Int): Color {
-        val red = Math.sin((frequency1 * i + phase1).toDouble()) * width + center
-        val green = Math.sin((frequency2*i + phase2).toDouble()) * width + center
-        val blue = Math.sin((frequency3*i + phase3).toDouble()) * width + center
-        return Color(red.toInt(), green.toInt(), blue.toInt())
-    }
-
-
-
-
     fun render(gc: GameContainer, game: StateBasedGame, g: Graphics, isInHighScoreState: Boolean) {
         if (isInHighScoreState) {
-            fontComputer32.drawStringCentered(Const.GAME_WIDTH / 2f - 300f, Const.GAME_WIDTH, "NEW HIGH SCORE", colorCycle)
+            fontComputer32.drawStringCentered(Const.GAME_WIDTH / 2f - 300f, Const.GAME_WIDTH, "NEW HIGH SCORE", colors[colorIndex])
         } else {
             fontComputer32.drawStringCentered(Const.GAME_WIDTH / 2f - 300f, Const.GAME_WIDTH, "HIGH SCORES")
         }

@@ -41,7 +41,7 @@ class StartUpState : BasicGameState() {
         if (gc == null || g == null || game == null) throw RuntimeException("Error de inicializacion")
         g.drawImage(backimg, 0f, 0f)
 
-        HighScoreManager.render(gc, game, g, true)
+        HighScoreManager.render(gc, game, g, false)
     }
 
     override fun getID(): Int {
