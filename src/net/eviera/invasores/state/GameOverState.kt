@@ -17,10 +17,12 @@ class GameOverState : BasicGameState() {
     override fun init(gc: GameContainer?, game: StateBasedGame?) {
         backimg = Image("/resources/images/gameover_background.png")
         fontComputer24 = Helper.getComputerFont(Const.FONT_SIZE_24)
+    }
 
+    override fun enter(gc: GameContainer?, game: StateBasedGame?) {
+        if (gc == null || game == null) throw RuntimeException("Error de update")
         //Busco si tengo un nuevo highscore, y de ser asi, cambio el estado de highScoreState a true
         isInHighScoreState = HighScoreManager.isNewScore(State.score)
-
     }
 
     override fun update(gc: GameContainer?, game: StateBasedGame?, delta: Int) {
